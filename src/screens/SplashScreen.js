@@ -6,12 +6,12 @@ import BagIcon from '../assets/icons/bag.png';
 
 const SplashScreen = ({navigation}) => {
   useEffect(() => {
-    const goHome = setTimeout(() => {
+    const replaceToHome = setTimeout(() => {
       navigation.replace('Home');
     }, 1500);
 
     return () => {
-      clearTimeout(goHome);
+      clearTimeout(replaceToHome);
     };
   });
   return (
