@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Button} from 'react-native-elements';
 import {
   Text,
   View,
-  Button,
+  TouchableOpacity,
+  Image,
   ImageBackground,
   SafeAreaView,
   ScrollView,
@@ -12,6 +14,8 @@ import {
 
 import {updateTest} from '../public/redux/actionCreators/device';
 import Banner from '../assets/images/banner.jpg';
+import Bell from '../assets/icons/bell.png';
+import NotifOn from '../assets/icons/notif-on.png';
 import styles from '../styles/homeStyle';
 
 class Home extends Component {
@@ -64,6 +68,10 @@ class Home extends Component {
                 }}>
                 Street Clothes
               </Text>
+              <TouchableOpacity style={styles.notifButton}>
+                <Image source={Bell} />
+                <Image source={NotifOn} style={styles.notifOn} />
+              </TouchableOpacity>
             </ImageBackground>
           </View>
           <Button

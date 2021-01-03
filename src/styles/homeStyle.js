@@ -22,6 +22,23 @@ const homeStyle = StyleSheet.create({
     left: 10,
     fontSize: 20,
   },
+  notifButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 36,
+    width: 36,
+    borderRadius: 8,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    position: 'absolute',
+    top: 40,
+    right: 30,
+  },
+  notifOn: {
+    position: 'absolute',
+    top: 5,
+    right: 5,
+  },
   test: {
     height: 300,
     backgroundColor: 'blue',
