@@ -20,38 +20,12 @@ const initialState = {
 
 const deviceReducer = (prevState = initialState, action) => {
   switch (action.type) {
-    // case getSettingDevice:
-    //   return {
-    //     ...prevState,
-    //     isPending: true,
-    //     isRejected: false,
-    //     isFulfilled: false,
-    //   };
-    // case getSettingDevice:
-    //   return {
-    //     ...prevState,
-    //     isPending: false,
-    //     isRejected: true,
-    //   };
     case getSettingDevice:
       return {
         ...prevState,
         isPending: false,
         isFulfilled: true,
       };
-    // case setSettingDevice:
-    //   return {
-    //     ...prevState,
-    //     isPending: true,
-    //     isRejected: false,
-    //     isFulfilled: false,
-    //   };
-    // case setSettingDevice:
-    //   return {
-    //     ...prevState,
-    //     isPending: false,
-    //     isRejected: true,
-    //   };
     case setSettingDevice:
       const get = action.payload.window;
       const width = get.width;

@@ -21,6 +21,7 @@ const homeStyle = StyleSheet.create({
     bottom: 30,
     left: 10,
     fontSize: 20,
+    fontFamily: 'AirbnbCerealBlack',
   },
   notifButton: {
     flex: 1,
