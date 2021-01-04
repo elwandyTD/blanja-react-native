@@ -8,7 +8,7 @@ import {Provider} from 'react-redux';
 import configureStore from './src/public/redux/store';
 
 import SplashScreen from './src/screens/SplashScreen';
-import Test from './src/screens/Test';
+import Notification from './src/screens/Notifcation';
 import BottomNavbar from './src/components/BottomNavbar';
 
 const {store, persistor} = configureStore();
@@ -27,13 +27,6 @@ const appRouter = () => {
                 headerShown: false,
               }}
             />
-            {/* <Stack.Screen
-              name="Home"
-              component={Home}
-              options={{
-                headerShown: false,
-              }}
-            /> */}
             <Stack.Screen
               name="Home"
               component={BottomNavbar}
@@ -41,7 +34,13 @@ const appRouter = () => {
                 headerShown: false,
               }}
             />
-            <Stack.Screen name="Test" component={Test} />
+            <Stack.Screen
+              name="Notification"
+              component={Notification}
+              options={{
+                headerShown: false,
+              }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

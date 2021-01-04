@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   ScrollView,
   Dimensions,
+  StatusBar,
 } from 'react-native';
 
 import ProductsHorizontal from '../components/ProductsHorizontal';
@@ -49,6 +50,11 @@ class Home extends Component {
     const {height, width, orientation} = this.props.device;
     return (
       <SafeAreaView style={styles.container}>
+        <StatusBar
+          translucent
+          backgroundColor="transparent"
+          barStyle="dark-content"
+        />
         <ScrollView>
           <View style={styles.banner}>
             <ImageBackground
@@ -67,7 +73,9 @@ class Home extends Component {
                 }}>
                 Street Clothes
               </Text>
-              <TouchableOpacity style={styles.notifButton}>
+              <TouchableOpacity
+                style={styles.notifButton}
+                onPress={() => this.props.navigation.push('Notification')}>
                 <IconF name="bell" color="white" style={styles.notifIcon} />
                 <View style={styles.notifOn} />
               </TouchableOpacity>
