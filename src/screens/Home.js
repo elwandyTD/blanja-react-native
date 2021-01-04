@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Button} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import IconF from 'react-native-vector-icons/Feather';
 import {
   Text,
   View,
   TouchableOpacity,
-  Image,
   ImageBackground,
   SafeAreaView,
   ScrollView,
@@ -17,8 +14,6 @@ import {
 import ProductsHorizontal from '../components/ProductsHorizontal';
 import {updateTest} from '../public/redux/actionCreators/device';
 import Banner from '../assets/images/banner.jpg';
-import Bell from '../assets/icons/bell.png';
-import NotifOn from '../assets/icons/notif-on.png';
 import styles from '../styles/homeStyle';
 
 class Home extends Component {
@@ -61,7 +56,8 @@ class Home extends Component {
               style={{
                 ...styles.bannerImage,
                 ...{
-                  height: orientation === 'portrait' ? height / 3 : height - 25,
+                  height:
+                    orientation === 'portrait' ? height / 2.5 : height - 25,
                 },
               }}>
               <Text
@@ -72,10 +68,8 @@ class Home extends Component {
                 Street Clothes
               </Text>
               <TouchableOpacity style={styles.notifButton}>
-                {/* <Image source={Bell} /> */}
                 <IconF name="bell" color="white" style={styles.notifIcon} />
                 <View style={styles.notifOn} />
-                {/* <Image source={NotifOn} style={styles.notifOn} /> */}
               </TouchableOpacity>
             </ImageBackground>
           </View>

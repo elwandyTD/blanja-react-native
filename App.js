@@ -6,11 +6,10 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {Provider} from 'react-redux';
 
 import configureStore from './src/public/redux/store';
-// import {store, persistor} from './src/public/redux/store';
 
 import SplashScreen from './src/screens/SplashScreen';
-import Home from './src/screens/Home';
 import Test from './src/screens/Test';
+import BottomNavbar from './src/components/BottomNavbar';
 
 const {store, persistor} = configureStore();
 const Stack = createStackNavigator();
@@ -28,9 +27,16 @@ const appRouter = () => {
                 headerShown: false,
               }}
             />
-            <Stack.Screen
+            {/* <Stack.Screen
               name="Home"
               component={Home}
+              options={{
+                headerShown: false,
+              }}
+            /> */}
+            <Stack.Screen
+              name="Home"
+              component={BottomNavbar}
               options={{
                 headerShown: false,
               }}
