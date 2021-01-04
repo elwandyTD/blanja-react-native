@@ -10,6 +10,10 @@ import configureStore from './src/public/redux/store';
 import SplashScreen from './src/screens/SplashScreen';
 import Notification from './src/screens/Notifcation';
 import BottomNavbar from './src/components/BottomNavbar';
+import Login from './src/screens/auth/Login';
+import Register from './src/screens/auth/Register';
+import ForgotPass from './src/screens/auth/ForgotPass';
+import ResetPass from './src/screens/auth/ResetPass';
 
 const {store, persistor} = configureStore();
 const Stack = createStackNavigator();
@@ -23,6 +27,34 @@ const appRouter = () => {
             <Stack.Screen
               name="Splash Screen"
               component={SplashScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Sign Up"
+              component={Register}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Forgot Password"
+              component={ForgotPass}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Reset Password"
+              component={ResetPass}
               options={{
                 headerShown: false,
               }}
