@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native';
 const homeStyle = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#F9F9F9',
   },
   banner: {
     flex: 1,
@@ -19,9 +20,9 @@ const homeStyle = StyleSheet.create({
     color: '#FFFFFF',
     position: 'absolute',
     bottom: 30,
-    left: 10,
+    left: 15,
     fontSize: 20,
-    fontFamily: 'AirbnbCerealBlack',
+    fontFamily: 'Metropolis-Bold',
   },
   notifButton: {
     flex: 1,

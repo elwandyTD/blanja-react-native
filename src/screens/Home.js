@@ -12,6 +12,7 @@ import {
   Dimensions,
 } from 'react-native';
 
+import ProductsHorizontal from '../components/ProductsHorizontal';
 import {updateTest} from '../public/redux/actionCreators/device';
 import Banner from '../assets/images/banner.jpg';
 import Bell from '../assets/icons/bell.png';
@@ -74,9 +75,13 @@ class Home extends Component {
               </TouchableOpacity>
             </ImageBackground>
           </View>
-          <Button
-            title="Go Test"
-            onPress={() => this.props.navigation.push('Test')}
+          <ProductsHorizontal
+            title="New"
+            subtitle="You've never seen it before!"
+          />
+          <ProductsHorizontal
+            title="Popular"
+            subtitle="You've never seen it before!"
           />
         </ScrollView>
       </SafeAreaView>

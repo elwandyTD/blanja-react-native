@@ -1,9 +1,9 @@
 import {
   getSettingDevice,
   setSettingDevice,
-  pending,
-  rejected,
-  fulfilled,
+  // pending,
+  // rejected,
+  // fulfilled,
 } from '../actionString';
 import {Dimensions} from 'react-native';
 
