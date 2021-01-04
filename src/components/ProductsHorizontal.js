@@ -1,10 +1,9 @@
 import React from 'react';
 import {View, Text, ScrollView, ImageBackground} from 'react-native';
-import {Rating, AirbnbRating} from 'react-native-elements';
+import {AirbnbRating} from 'react-native-elements';
 
 import styles from '../styles/productsHorizontalStyle';
 import ProductImg from '../assets/images/product-1.png';
-import StartIcon from '../assets/icons/star.png';
 
 const ProductsHorizontal = ({title, subtitle}) => {
   return (

@@ -36,7 +36,14 @@ const homeStyle = StyleSheet.create({
     top: 40,
     right: 30,
   },
+  notifIcon: {
+    fontSize: 24,
+  },
   notifOn: {
+    height: 9,
+    width: 9,
+    borderRadius: 10,
+    backgroundColor: 'red',
     position: 'absolute',
     top: 5,
     right: 5,

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Button} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import IconF from 'react-native-vector-icons/Feather';
 import {
   Text,
   View,
@@ -70,8 +72,10 @@ class Home extends Component {
                 Street Clothes
               </Text>
               <TouchableOpacity style={styles.notifButton}>
-                <Image source={Bell} />
-                <Image source={NotifOn} style={styles.notifOn} />
+                {/* <Image source={Bell} /> */}
+                <IconF name="bell" color="white" style={styles.notifIcon} />
+                <View style={styles.notifOn} />
+                {/* <Image source={NotifOn} style={styles.notifOn} /> */}
               </TouchableOpacity>
             </ImageBackground>
           </View>
