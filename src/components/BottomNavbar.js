@@ -7,7 +7,7 @@ import IconIo from 'react-native-vector-icons/Ionicons';
 import styles from '../styles/bottomNavbarStyle';
 
 import Home from '../screens/Home';
-import Cart from '../screens/Cart';
+import Cart from '../screens/Categories';
 import Catalog from '../screens/Catalog';
 import Favorites from '../screens/Favorites';
 import Profile from '../screens/Profile';
@@ -60,7 +60,6 @@ const BottomNavbar = () => {
           tabBarLabel: ({focused}) => {
             return (
               <Text
-                onPress={() => console.log('click')}
                 style={{
                   ...styles.label,
                   ...{color: focused ? '#DB3022' : '#9B9B9B'},

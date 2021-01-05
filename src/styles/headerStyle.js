@@ -4,6 +4,7 @@ const headerStyle = StyleSheet.create({
   containerStyle: {
     backgroundColor: '#F9F9F9',
     borderBottomColor: '#F9F9F9',
+    elevation: 1,
   },
   btnArrow: {
     width: 30,
