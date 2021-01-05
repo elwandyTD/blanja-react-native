@@ -41,13 +41,20 @@ class Cart extends Component {
           />
           <View style={styles.infoContainer}>
             <TouchableOpacity
-              style={{...authStyles.btnAuth, ...{marginTop: 0}}}>
+              style={{...authStyles.btnAuth, ...{marginTop: 0}}}
+              onPress={() =>
+                this.props.navigation.navigate('Catalog', {title: 'Show All'})
+              }>
               <Text style={authStyles.btnAuthText}>VIEW ALL ITEMS</Text>
             </TouchableOpacity>
             <Text style={styles.textInfo}>Choose Category</Text>
           </View>
           <View style={styles.categoriesContainer}>
-            <TouchableOpacity style={styles.btnCategory}>
+            <TouchableOpacity
+              style={styles.btnCategory}
+              onPress={() =>
+                this.props.navigation.navigate('Catalog', {title: 'Tops'})
+              }>
               <Text style={styles.btnText}>Tops</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.btnCategory}>

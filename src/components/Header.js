@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import styles from '../styles/headerStyle';
 import ArrowLeft from '../assets/icons/arr-left.png';
 
-const MyHeader = ({title, component, routeToTop = false}) => {
+const MyHeader = ({title, component, routeToTop = false, color}) => {
   const navigation = useNavigation();
 
   const LogoLeft = () => {
@@ -23,7 +23,14 @@ const MyHeader = ({title, component, routeToTop = false}) => {
     <>
       <Header
         barStyle="default"
-        containerStyle={styles.containerStyle}
+        containerStyle={
+          color
+            ? {
+                ...styles.containerStyle,
+                ...{backgroundColor: color, borderBottomColor: color},
+              }
+            : styles.containerStyle
+        }
         leftComponent={LogoLeft}
         centerComponent={<Text style={styles.centerTitle}>{title}</Text>}
         rightComponent={component ? component : <View />}

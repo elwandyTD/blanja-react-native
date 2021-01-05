@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
 import IconFA from 'react-native-vector-icons/FontAwesome';
 import IconIo from 'react-native-vector-icons/Ionicons';
 
@@ -11,8 +12,31 @@ import Cart from '../screens/Categories';
 import Catalog from '../screens/Catalog';
 import Favorites from '../screens/Favorites';
 import Profile from '../screens/Profile';
+import Bag from '../screens/Bag';
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const ShopNavigation = () => {
+  return (
+    <Stack.Navigator initialRouteName="Cart">
+      <Stack.Screen
+        name="Cart"
+        component={Cart}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Catalog"
+        component={Catalog}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const BottomNavbar = () => {
   return (
@@ -55,7 +79,7 @@ const BottomNavbar = () => {
       />
       <Tab.Screen
         name="Cart"
-        component={Cart}
+        component={ShopNavigation}
         options={{
           tabBarLabel: ({focused}) => {
             return (
@@ -81,8 +105,9 @@ const BottomNavbar = () => {
       />
       <Tab.Screen
         name="Bag"
-        component={Catalog}
+        component={Bag}
         options={{
+          tabBarVisible: true,
           tabBarLabel: ({focused}) => {
             return (
               <Text
