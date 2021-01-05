@@ -75,6 +75,19 @@ const catalogStyle = StyleSheet.create({
     fontSize: 14,
     color: '#222',
   },
+  bottomSheet: {
+    backgroundColor: 'rgba(0.5, 0.25, 0, 0.2)',
+  },
+  bottomSheetTitle: {
+    fontSize: 18,
+    color: '#222',
+    fontFamily: 'Metropolis-Regular',
+  },
+  bottomItem: {
+    fontSize: 16,
+    color: '#222',
+    fontFamily: 'Metropolis-Regular',
+  },
 });
 
 export default catalogStyle;

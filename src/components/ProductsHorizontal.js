@@ -5,18 +5,20 @@ import {AirbnbRating} from 'react-native-elements';
 import styles from '../styles/productsHorizontalStyle';
 import ProductImg from '../assets/images/product-1.png';
 
-const ProductsHorizontal = ({title, subtitle}) => {
+const ProductsHorizontal = ({title, subtitle, justList = false}) => {
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.subtitle}>{subtitle}</Text>
+      {!justList && (
+        <View style={styles.header}>
+          <View>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.subtitle}>{subtitle}</Text>
+          </View>
+          <View style={styles.viewAllSection}>
+            <Text style={styles.viewAll}>View All</Text>
+          </View>
         </View>
-        <View style={styles.viewAllSection}>
-          <Text style={styles.viewAll}>View All</Text>
-        </View>
-      </View>
+      )}
       <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={false}
