@@ -14,6 +14,8 @@ import Login from './src/screens/auth/Login';
 import Register from './src/screens/auth/Register';
 import ForgotPass from './src/screens/auth/ForgotPass';
 import ResetPass from './src/screens/auth/ResetPass';
+import DetailProduct from './src/screens/DetailProduct';
+import Checkout from './src/screens/Checkout';
 
 const {store, persistor} = configureStore();
 const Stack = createStackNavigator();
@@ -69,6 +71,20 @@ const appRouter = () => {
             <Stack.Screen
               name="Notification"
               component={Notification}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Detail"
+              component={DetailProduct}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Checkout"
+              component={Checkout}
               options={{
                 headerShown: false,
               }}
