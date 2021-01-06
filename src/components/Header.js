@@ -11,7 +11,7 @@ const MyHeader = ({
   component,
   routeToTop = false,
   color,
-  showPop = false,
+  showPop = true,
 }) => {
   const navigation = useNavigation();
 

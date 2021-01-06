@@ -58,6 +58,7 @@ const catalogStyle = StyleSheet.create({
   },
   cardInfo: {
     padding: 10,
+    position: 'relative',
   },
   cardTitle: {
     fontFamily: 'Metropolis-Regular',

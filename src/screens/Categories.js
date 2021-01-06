@@ -29,7 +29,7 @@ class Cart extends Component {
   };
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <>
         <Header title="Categories" component={this.iconRight} />

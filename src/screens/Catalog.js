@@ -85,9 +85,9 @@ class Catalog extends Component {
               </TouchableOpacity>
             </View>
           </View>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Detail', {id: 1})}>
-            <View style={styles.itemsContainer}>
+          <View style={styles.itemsContainer}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Detail', {id: 1})}>
               <View style={styles.cardItem}>
                 <Image source={ProductImage} style={styles.cardImage} />
                 <View style={styles.cardInfo}>
@@ -105,8 +105,8 @@ class Catalog extends Component {
                   <Text style={styles.cardPrice}>34$</Text>
                 </View>
               </View>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </View>
           <BottomSheet
             isVisible={this.state.openModal}
             containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.2)'}}>
