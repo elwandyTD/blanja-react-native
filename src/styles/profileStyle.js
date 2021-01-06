@@ -16,6 +16,14 @@ const splashScreenStyle = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
   },
+  imageUser: {
+    width: 64,
+    height: 64,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    resizeMode: 'cover',
+  },
   username: {
     fontSize: 18,
     fontFamily: 'Metropolis-Regular',
