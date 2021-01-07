@@ -93,7 +93,7 @@ export class DetailProduct extends Component {
               <Text style={styles.itemTitle}>${item.product_price}</Text>
             </View>
             <Text style={productsHorizontalStyles.subtitle}>
-              {item.product_price}
+              {item.brand_name}
             </Text>
             <View style={productsHorizontalStyles.starsReview}>
               <AirbnbRating

@@ -31,26 +31,28 @@ export class Checkout extends Component {
             </View>
           </View>
         </ScrollView>
-        <View style={bagStyle.bottomContainer}>
-          <View style={bagStyle.changeInfoSect}>
-            <Text style={bagStyle.textTotalPrice}>Order: </Text>
-            <Text style={bagStyle.numTotalPrice}>112$</Text>
+        <View style={styles.bottomContainer}>
+          <View>
+            <View style={styles.changeInfoSect}>
+              <Text style={styles.textTotalPrice}>Order: </Text>
+              <Text style={styles.numTotalPrice}>112$</Text>
+            </View>
           </View>
-          <View style={bagStyle.changeInfoSect}>
-            <Text style={bagStyle.textTotalPrice}>Delivery: </Text>
-            <Text style={bagStyle.numTotalPrice}>15$</Text>
+          <View style={styles.changeInfoSect}>
+            <Text style={styles.textTotalPrice}>Delivery: </Text>
+            <Text style={styles.numTotalPrice}>15$</Text>
           </View>
-          <View style={bagStyle.changeInfoSect}>
+          <View style={styles.changeInfoSect}>
             <Text style={styles.summaryText}>Summary: </Text>
             <Text style={styles.summaryPrice}>127$</Text>
           </View>
           <TouchableOpacity
-            style={{...authStyles.btnAuth, ...{marginTop: 0}}}
+            style={styles.btnAuth}
             onPress={
               () => console.log('checkout')
               // this.props.navigation.navigate('Catalog', {title: 'Show All'})
             }>
-            <Text style={authStyles.btnAuthText}>SUBMIT ORDER</Text>
+            <Text style={styles.btnAuthText}>SUBMIT ORDER</Text>
           </TouchableOpacity>
         </View>
       </>
