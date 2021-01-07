@@ -34,7 +34,7 @@ export class ResetPass extends Component {
       <>
         <MyHeader title=" " />
         <ScrollView style={styles.container}>
-          <Text style={styles.title}>Forgot Password</Text>
+          <Text style={styles.title}>Reset Password</Text>
           <View style={styles.formSection}>
             <Text style={styles.infoTextError}>
               You need to change your password to activate your account

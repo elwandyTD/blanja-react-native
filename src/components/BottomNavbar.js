@@ -111,7 +111,7 @@ const BottomNavbar = () => {
                   ...styles.label,
                   ...{color: focused ? '#DB3022' : '#9B9B9B'},
                 }}>
-                Cart
+                Shop
               </Text>
             );
           },

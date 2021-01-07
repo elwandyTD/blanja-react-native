@@ -57,21 +57,33 @@ class Catalog extends Component {
 
   getProductsDispatch = async () => {
     const {dispatch} = this.props;
-    const {link} = this.props.route.params;
-    await dispatch(getProducts(link));
+    const {params} = this.props.route;
+    await dispatch(getProducts(params.link));
+    console.log(params, 62);
   };
 
   componentDidMount() {
     this.getProductsDispatch();
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.route.params.link !== prevProps.route.params.link) {
+      this.getProductsDispatch();
+    }
+  }
+
   render() {
-    const {title} = this.props.route.params;
+    const {params} = this.props.route;
     const {product} = this.props.product;
-    console.log(product.data);
+
     return (
       <>
-        <Header title=" " component={this.iconRight} color="#FFF" />
+        <Header
+          title=" "
+          component={this.iconRight}
+          color="#FFF"
+          to={params.to ? params.to : 'Cart'}
+        />
         <ScrollView>
           <StatusBar
             translucent
@@ -80,7 +92,7 @@ class Catalog extends Component {
           />
           <View style={styles.containerTop}>
             <Text style={styles.title}>
-              {title ? title : 'Search All hehe'}
+              {params.title ? params.title : 'Search All hehe'}
             </Text>
             <View style={styles.filterSection}>
               <View style={styles.rowInfo}>
@@ -106,7 +118,7 @@ class Catalog extends Component {
                   <TouchableOpacity
                     key={i}
                     onPress={() =>
-                      this.props.navigation.navigate('Detail', {item: item})
+                      this.props.navigation.push('Detail', {item: item})
                     }>
                     <View style={styles.cardItem}>
                       <Image
@@ -125,12 +137,17 @@ class Catalog extends Component {
                         <View style={stylesProductHorizontal.starsReview}>
                           <AirbnbRating
                             isDisabled={true}
+                            defaultRating={
+                              item.product_rating !== null
+                                ? Math.floor(item.product_rating)
+                                : 0
+                            }
                             showRating={false}
                             size={15}
                             starStyle={stylesProductHorizontal.starStyle}
                           />
                           <Text style={stylesProductHorizontal.reviewNum}>
-                            (0)
+                            ({item.review_user})
                           </Text>
                         </View>
                         <Text style={styles.cardPrice}>

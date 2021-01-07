@@ -46,8 +46,7 @@ export class Bag extends Component {
           />
           <Text style={styles.titleBag}>My Bag</Text>
           <View style={styles.itemsContainer}>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Detail', {id: 1})}>
+            <TouchableOpacity onPress={() => console.log('Tet')}>
               <View style={catalogStyle.cardItem}>
                 <Image source={ProductImage} style={catalogStyle.cardImage} />
                 <View style={catalogStyle.cardInfo}>
@@ -74,8 +73,7 @@ export class Bag extends Component {
                 </View>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Detail', {id: 1})}>
+            <TouchableOpacity onPress={() => console.log('Tet')}>
               <View style={catalogStyle.cardItem}>
                 <Image source={ProductImage} style={catalogStyle.cardImage} />
                 <View style={catalogStyle.cardInfo}>
@@ -102,8 +100,7 @@ export class Bag extends Component {
                 </View>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Detail', {id: 1})}>
+            <TouchableOpacity onPress={() => console.log('Tet')}>
               <View style={catalogStyle.cardItem}>
                 <Image source={ProductImage} style={catalogStyle.cardImage} />
                 <View style={catalogStyle.cardInfo}>
@@ -130,8 +127,7 @@ export class Bag extends Component {
                 </View>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Detail', {id: 1})}>
+            <TouchableOpacity onPress={() => console.log('test')}>
               <View style={catalogStyle.cardItem}>
                 <Image source={ProductImage} style={catalogStyle.cardImage} />
                 <View style={catalogStyle.cardInfo}>

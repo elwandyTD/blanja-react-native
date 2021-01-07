@@ -12,13 +12,22 @@ const MyHeader = ({
   routeToTop = false,
   color,
   showPop = true,
+  to = '',
 }) => {
   const navigation = useNavigation();
 
   const LogoLeft = () => {
     return (
       <TouchableOpacity
-        onPress={() => (routeToTop ? navigation.popToTop() : navigation.pop())}
+        onPress={() => {
+          if (routeToTop) {
+            navigation.popToTop();
+          } else if (to !== '') {
+            navigation.navigate(to);
+          } else {
+            navigation.pop();
+          }
+        }}
         style={styles.btnArrow}>
         <Image style={styles.arrBack} source={ArrowLeft} />
       </TouchableOpacity>

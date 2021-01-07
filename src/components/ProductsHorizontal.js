@@ -30,12 +30,25 @@ const ProductsHorizontal = ({
             <Text style={styles.subtitle}>{subtitle}</Text>
           </View>
           <View style={styles.viewAllSection}>
-            {/* <TouchableOpacity
+            <TouchableOpacity
               onPress={() =>
-                navigation.navigate('Detail', {link: link, title: title})
+                // navigation.push('Cart', {
+                //   screen: 'Catalog',
+                //   params: {
+                //     title: title,
+                //     link: link,
+                //   },
+                // }
+                navigation.navigate('Cart', {
+                  screen: 'Catalog',
+                  params: {
+                    title: title,
+                    link: link,
+                  },
+                })
               }>
-            </TouchableOpacity> */}
-            <Text style={styles.viewAll}>View All</Text>
+              <Text style={styles.viewAll}>View All</Text>
+            </TouchableOpacity>
           </View>
         </View>
       )}
@@ -72,6 +85,11 @@ const ProductsHorizontal = ({
                     <AirbnbRating
                       isDisabled={true}
                       showRating={false}
+                      defaultRating={
+                        item.product_rating
+                          ? Math.floor(item.product_rating)
+                          : 0
+                      }
                       size={15}
                       starStyle={styles.starStyle}
                     />
@@ -79,7 +97,7 @@ const ProductsHorizontal = ({
                   </View>
                   <Text style={styles.cardBrand}>{item.brand_name}</Text>
                   <Text style={styles.cardTitle}>{item.product_title}</Text>
-                  <Text style={styles.cardPrice}>{item.product_price}$</Text>
+                  <Text style={styles.cardPrice}>IDR {item.product_price}</Text>
                 </View>
               </TouchableOpacity>
             );

@@ -90,25 +90,13 @@ class Profile extends Component {
             />
             <Button
               title="Reset Password"
-              onPress={() => this.props.navigation.push('Reset Passord')}
+              onPress={() => this.props.navigation.push('Reset Password')}
             />
-            {/* <TouchableOpacity
-              onPress={() => this.props.navigation.push('Reset Passord')}>
-              <Text>Hahah</Text>
-            </TouchableOpacity> */}
           </View>
         </ScrollView>
       </>
     );
   }
 }
-
-// const Profile = () => {
-//   return (
-//     <View>
-//       <Text>Profile</Text>
-//     </View>
-//   );
-// };
 
 export default Profile;

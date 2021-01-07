@@ -116,7 +116,7 @@ export class DetailProduct extends Component {
             </TouchableOpacity>
             <TouchableOpacity>
               <View style={styles.listInfo}>
-                <Text>Shipping Info</Text>
+                <Text>Support</Text>
               </View>
             </TouchableOpacity>
           </View>

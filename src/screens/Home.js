@@ -10,8 +10,7 @@ import {
   ImageBackground,
   SafeAreaView,
   ScrollView,
-  Dimensions,
-  Button,
+  // Dimensions,
   StatusBar,
 } from 'react-native';
 import {
@@ -79,16 +78,6 @@ class Home extends Component {
     this.getProductNewDispatch();
     this.getProductPopularDispacth();
     this.getCategoriesDispatch();
-    // console.log(this.props.device, 'did mount');
-    // Dimensions.addEventListener('change', ({window}) => {
-    //   this.dispatchUpdateDevice(window);
-    // });
-  }
-
-  componentWillUnmount() {
-    // Dimensions.removeEventListener('change', ({window}) => {
-    //   this.dispatchUpdateDevice(window);
-    // });
   }
 
   render() {
@@ -139,23 +128,8 @@ class Home extends Component {
             subtitle="You've never seen it before!"
             products={this.state.productPopular.products}
             link="?order=popular"
+            // to="Home"
           />
-          {/* <Button
-            title="Sign In"
-            onPress={() => this.props.navigation.navigate('Sign In')}
-          />
-          <Button
-            title="Sign Up"
-            onPress={() => this.props.navigation.push('Sign Up')}
-          />
-          <Button
-            title="Forgot Password"
-            onPress={() => this.props.navigation.push('Forgot Password')}
-          />
-          <Button
-            title="Reset Password"
-            onPress={() => this.props.navigation.push('Reset Password')}
-          /> */}
         </ScrollView>
       </SafeAreaView>
     );

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, Component} from 'react';
 import {View, Image, StatusBar} from 'react-native';
 import styles from '../styles/splashScreenStyle';
 
@@ -25,5 +25,9 @@ const SplashScreen = ({navigation}) => {
     </View>
   );
 };
+
+// class SplashScreen extends Component {
+
+// }
 
 export default SplashScreen;
