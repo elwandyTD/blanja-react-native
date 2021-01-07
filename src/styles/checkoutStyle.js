@@ -10,9 +10,14 @@ const checkoutStyle = StyleSheet.create({
     fontFamily: 'Metropolis-Regular',
     color: '#222',
     fontWeight: 'bold',
+    marginBottom: 20,
   },
   shippingCart: {
     padding: 20,
+    backgroundColor: '#FFF',
+    marginBottom: 15,
+    elevation: 1,
+    borderRadius: 8,
   },
   rowInfo: {
     display: 'flex',
@@ -20,6 +25,7 @@ const checkoutStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 10,
   },
   infoText: {
     fontSize: 14,

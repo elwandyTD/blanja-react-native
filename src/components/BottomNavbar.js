@@ -12,10 +12,12 @@ import Cart from '../screens/Categories';
 import Catalog from '../screens/Catalog';
 import Favorites from '../screens/Favorites';
 import Profile from '../screens/Profile';
+import MyOrders from '../screens/MyOrders';
 import Bag from '../screens/Bag';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+const Stack1 = createStackNavigator();
 
 const ShopNavigation = () => {
   return (
@@ -35,6 +37,27 @@ const ShopNavigation = () => {
         }}
       />
     </Stack.Navigator>
+  );
+};
+
+const ProfileNavigation = () => {
+  return (
+    <Stack1.Navigator initialRouteName="Profile">
+      <Stack1.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack1.Screen
+        name="My Orders"
+        component={MyOrders}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack1.Navigator>
   );
 };
 
@@ -158,7 +181,7 @@ const BottomNavbar = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileNavigation}
         options={{
           tabBarLabel: ({focused}) => {
             return (

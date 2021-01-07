@@ -3,27 +3,31 @@ import {
   getProductNewString,
   getProductPopularString,
 } from '../actionString';
+// import env from 'react-native-config';
 import axios from 'axios';
 
-const url = process.env.REACT_APP_BASE_URL;
+// const url = 'http://localhost:8000';
+const url = 'http://192.168.43.216:8000';
+// const url = 'http://10.0.2.2:8000';
+// const url = env.API_HOST;
 
-export const getProduct = (custom = '') => {
+export const getProducts = (custom = '') => {
   return {
     type: getProductString,
     payload: axios.get(url + '/product' + custom),
   };
 };
 
-export const getProductPopular = () => {
+export const getProductPopulars = () => {
   return {
     type: getProductPopularString,
-    payload: axios.get(url + '/product?order=popular&sort=asc'),
+    payload: axios.get(url + '/product?order=popular'),
   };
 };
 
-export const getProductNew = () => {
+export const getProductNews = () => {
   return {
     type: getProductNewString,
-    payload: axios.get(url + '/product?order=newest&sort=asc'),
+    payload: axios.get(url + '/product?order=newest&sort=desc'),
   };
 };

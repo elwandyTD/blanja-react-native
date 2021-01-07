@@ -74,6 +74,62 @@ export class Bag extends Component {
                 </View>
               </View>
             </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Detail', {id: 1})}>
+              <View style={catalogStyle.cardItem}>
+                <Image source={ProductImage} style={catalogStyle.cardImage} />
+                <View style={catalogStyle.cardInfo}>
+                  <Text style={catalogStyle.cardTitle}>Pullover</Text>
+                  <View style={styles.infosItem}>
+                    <Text style={catalogStyle.cardBrand}>Mango: </Text>
+                    <Text style={catalogStyle.cardBrand}>Gray</Text>
+                    <Text style={catalogStyle.cardBrand}>Size: </Text>
+                    <Text style={catalogStyle.cardBrand}>Mango</Text>
+                  </View>
+                  <View style={styles.changeInfoSect}>
+                    {/* <View style={styles.changeNum}> */}
+                    <View style={styles.infosItem}>
+                      <TouchableOpacity style={styles.btnNum}>
+                        <Text style={styles.textBtnNum}>-</Text>
+                      </TouchableOpacity>
+                      <Text style={styles.textNumInfo}>1</Text>
+                      <TouchableOpacity style={styles.btnNum}>
+                        <Text style={styles.textBtnNum}>+</Text>
+                      </TouchableOpacity>
+                    </View>
+                    <Text style={catalogStyle.textNumInfo}>34$</Text>
+                  </View>
+                </View>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Detail', {id: 1})}>
+              <View style={catalogStyle.cardItem}>
+                <Image source={ProductImage} style={catalogStyle.cardImage} />
+                <View style={catalogStyle.cardInfo}>
+                  <Text style={catalogStyle.cardTitle}>Pullover</Text>
+                  <View style={styles.infosItem}>
+                    <Text style={catalogStyle.cardBrand}>Mango: </Text>
+                    <Text style={catalogStyle.cardBrand}>Gray</Text>
+                    <Text style={catalogStyle.cardBrand}>Size: </Text>
+                    <Text style={catalogStyle.cardBrand}>Mango</Text>
+                  </View>
+                  <View style={styles.changeInfoSect}>
+                    {/* <View style={styles.changeNum}> */}
+                    <View style={styles.infosItem}>
+                      <TouchableOpacity style={styles.btnNum}>
+                        <Text style={styles.textBtnNum}>-</Text>
+                      </TouchableOpacity>
+                      <Text style={styles.textNumInfo}>1</Text>
+                      <TouchableOpacity style={styles.btnNum}>
+                        <Text style={styles.textBtnNum}>+</Text>
+                      </TouchableOpacity>
+                    </View>
+                    <Text style={catalogStyle.textNumInfo}>34$</Text>
+                  </View>
+                </View>
+              </View>
+            </TouchableOpacity>
           </View>
         </ScrollView>
         <View style={styles.bottomContainer}>
@@ -82,13 +138,22 @@ export class Bag extends Component {
             <Text style={styles.numTotalPrice}>112$</Text>
           </View>
           <TouchableOpacity
-            style={{...authStyles.btnAuth, ...{marginTop: 0}}}
+            style={styles.btnAuth}
+            onPress={
+              () => console.log('checkout')
+              // this.props.navigation.navigate('Catalog', {title: 'Show All'})
+            }>
+            <Text style={styles.btnAuthText}>CHECKOUT</Text>
+          </TouchableOpacity>
+          {/* <TouchableOpacity
+            style={{...authStyles.btnAuth, ...{marginTop: 0, minHeight: 10}}}
             onPress={
               () => console.log('checkout')
               // this.props.navigation.navigate('Catalog', {title: 'Show All'})
             }>
             <Text style={authStyles.btnAuthText}>CHECK OUT</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          {/* <Text>coaefj</Text> */}
         </View>
       </>
     );

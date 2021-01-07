@@ -51,6 +51,7 @@ const catalogStyle = StyleSheet.create({
   },
   cardImage: {
     maxWidth: 110,
+    minWidth: 110,
     height: 110,
     flex: 1,
     justifyContent: 'center',
@@ -65,6 +66,8 @@ const catalogStyle = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     color: '#222',
+    // maxWidth: 100,
+    overflow: 'hidden',
   },
   cardBrand: {
     fontSize: 11,

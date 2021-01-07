@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, ScrollView, Image} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  Button,
+} from 'react-native';
 import IconF from 'react-native-vector-icons/Fontisto';
 
 import ProfileImg from '../assets/images/profile.png';
@@ -38,27 +45,57 @@ class Profile extends Component {
             </View>
           </View>
           <View style={styles.linkContainer}>
-            <View style={styles.linkItem}>
-              <View style={styles.rowLink}>
-                <Text style={styles.linkTitle}>My orders</Text>
-                <Text style={styles.linkSub}>Already have 12 orders</Text>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('My Orders')}>
+              <View style={styles.linkItem}>
+                <View style={styles.rowLink}>
+                  <Text style={styles.linkTitle}>My orders</Text>
+                  <Text style={styles.linkSub}>Already have 12 orders</Text>
+                </View>
+                <Text>{'>'}</Text>
               </View>
-              <Text>{'>'}</Text>
-            </View>
-            <View style={styles.linkItem}>
-              <View style={styles.rowLink}>
-                <Text style={styles.linkTitle}>Shipping addresses</Text>
-                <Text style={styles.linkSub}>3 addresses</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.navigation.navigate('Shipping Address')
+              }>
+              <View style={styles.linkItem}>
+                <View style={styles.rowLink}>
+                  <Text style={styles.linkTitle}>Shipping addresses</Text>
+                  <Text style={styles.linkSub}>3 addresses</Text>
+                </View>
+                <Text>{'>'}</Text>
               </View>
-              <Text>{'>'}</Text>
-            </View>
-            <View style={styles.linkItem}>
-              <View style={styles.rowLink}>
-                <Text style={styles.linkTitle}>Settings</Text>
-                <Text style={styles.linkSub}>Notifications, password</Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <View style={styles.linkItem}>
+                <View style={styles.rowLink}>
+                  <Text style={styles.linkTitle}>Settings</Text>
+                  <Text style={styles.linkSub}>Notifications, password</Text>
+                </View>
+                <Text>{'>'}</Text>
               </View>
-              <Text>{'>'}</Text>
-            </View>
+            </TouchableOpacity>
+            <Button
+              title="Sign In"
+              onPress={() => this.props.navigation.navigate('Sign In')}
+            />
+            <Button
+              title="Sign Up"
+              onPress={() => this.props.navigation.push('Sign Up')}
+            />
+            <Button
+              title="Forgot Password"
+              onPress={() => this.props.navigation.push('Forgot Password')}
+            />
+            <Button
+              title="Reset Password"
+              onPress={() => this.props.navigation.push('Reset Passord')}
+            />
+            {/* <TouchableOpacity
+              onPress={() => this.props.navigation.push('Reset Passord')}>
+              <Text>Hahah</Text>
+            </TouchableOpacity> */}
           </View>
         </ScrollView>
       </>

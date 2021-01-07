@@ -4,20 +4,33 @@ import {
   View,
   ScrollView,
   StatusBar,
-  ImageBackground,
+  // ImageBackground,
   TouchableOpacity,
+  Image,
 } from 'react-native';
+import {connect} from 'react-redux';
+import IconIo from 'react-native-vector-icons/Ionicons';
 import {AirbnbRating} from 'react-native-elements';
+import {Picker} from '@react-native-picker/picker';
 
 import productsHorizontalStyles from '../styles/productsHorizontalStyle';
-import authStyles from '../styles/authStyle';
+// import authStyles from '../styles/authStyle';
 import styles from '../styles/detailProductStyle';
 
 import Header from '../components/Header';
 import ProductsHorizontal from '../components/ProductsHorizontal';
+// import Images from '../assets/images/product-1.png';
+// import Images1 from '../assets/images/product-2.png';
 
 export class DetailProduct extends Component {
+  state = {
+    language: 'java',
+  };
+
   render() {
+    const {item} = this.props.route.params;
+    const {products} = this.props.product.productNew.data;
+    // console.log(this.props);
     return (
       <>
         <Header title="Short dress" />
@@ -28,19 +41,59 @@ export class DetailProduct extends Component {
             barStyle="dark-content"
           />
           <ScrollView horizontal={true} style={styles.containerHorizontal}>
-            <View style={styles.imgWrapper}>
-              <ImageBackground source="" style={styles.img} />
-            </View>
+            {/* <View style={styles.imgWrapper}>
+              <ImageBackground source={Images} style={styles.img} />
+            </View> */}
+            {item.product_images.map((image, i) => {
+              // console.log(image);
+              return (
+                <Image
+                  key={i}
+                  source={{
+                    uri: 'http://192.168.43.216:8000' + image.image_path,
+                  }}
+                  style={styles.img}
+                />
+              );
+            })}
+            {/* <Image source={Images} style={styles.img} /> */}
           </ScrollView>
+          <View style={styles.containerThree}>
+            <Picker
+              selectedValue={this.state.language}
+              style={styles.secOpt}
+              onValueChange={(itemValue, _) =>
+                this.setState({language: itemValue})
+              }>
+              <Picker.Item label="S" value="java" />
+              <Picker.Item label="M" value="js" />
+              <Picker.Item label="XL" value="js" />
+            </Picker>
+            <Picker
+              selectedValue={this.state.language}
+              style={styles.secOpt}
+              onValueChange={(itemValue, _) =>
+                this.setState({language: itemValue})
+              }>
+              <Picker.Item label="White" value="java" />
+              <Picker.Item label="Black" value="js" />
+              <Picker.Item label="Green" value="js" />
+              <Picker.Item label="Blue" value="js" />
+              <Picker.Item label="Red" value="js" />
+            </Picker>
+            <View style={styles.center}>
+              <IconIo name="heart" color="#DB3022" size={20} />
+            </View>
+          </View>
           <View style={styles.containerOne}>
             <View style={styles.infoSect}>
               <Text style={{...styles.itemTitle, ...{fontWeight: 'bold'}}}>
-                H&M
+                {item.product_title}
               </Text>
-              <Text style={styles.itemTitle}>$18.88</Text>
+              <Text style={styles.itemTitle}>${item.product_price}</Text>
             </View>
             <Text style={productsHorizontalStyles.subtitle}>
-              Short black dress
+              {item.product_price}
             </Text>
             <View style={productsHorizontalStyles.starsReview}>
               <AirbnbRating
@@ -49,14 +102,11 @@ export class DetailProduct extends Component {
                 size={15}
                 starStyle={productsHorizontalStyles.starStyle}
               />
-              <Text style={productsHorizontalStyles.reviewNum}>(0)</Text>
+              <Text style={productsHorizontalStyles.reviewNum}>
+                ({item.review_user})
+              </Text>
             </View>
-            <Text style={styles.itemDesc}>
-              Short dress in soft cotton jersey with decorative buttons down the
-              front and a wide, frill-trimmed square neckline with concealed
-              elastication. Elasticated seam under the bust and short puff
-              sleeves with a small frill trim.
-            </Text>
+            <Text style={styles.itemDesc}>{item.product_description}</Text>
           </View>
           <View style={styles.listSect}>
             <TouchableOpacity>
@@ -71,16 +121,16 @@ export class DetailProduct extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.containerOne}>
-            <View>
+            <View style={styles.rowOne}>
               <Text style={styles.textNext}>You can also like this</Text>
               <Text style={productsHorizontalStyles.subtitle}>12 items</Text>
             </View>
           </View>
-          <ProductsHorizontal />
+          <ProductsHorizontal products={products} justList={true} />
         </ScrollView>
         <View style={styles.containerTwo}>
-          <TouchableOpacity style={{...authStyles.btnAuth, ...{marginTop: 0}}}>
-            <Text style={authStyles.btnAuthText}>ADD TO CART</Text>
+          <TouchableOpacity style={styles.btnAuth}>
+            <Text style={styles.btnAuthText}>ADD TO CART</Text>
           </TouchableOpacity>
         </View>
       </>
@@ -88,4 +138,10 @@ export class DetailProduct extends Component {
   }
 }
 
-export default DetailProduct;
+const mapsStateToProps = ({product}) => {
+  return {
+    product,
+  };
+};
+
+export default connect(mapsStateToProps)(DetailProduct);

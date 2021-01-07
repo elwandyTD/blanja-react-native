@@ -6,8 +6,10 @@ export const getSingleProductString = 'GET_SINGLE_PRODUCT';
 export const getProductNewString = 'GET_PRODUCT_NEW';
 export const getProductString = 'GET_PRODUCT';
 
-export const loginUser = '';
-export const registerUser = '';
+export const loginUserString = 'LOGIN_USER';
+export const registerUserString = 'REGISTER_USER';
+
+export const getCategoryString = 'GET_CATEGORY';
 
 export const pending = '_PENDING';
 export const rejected = '_REJECTED';

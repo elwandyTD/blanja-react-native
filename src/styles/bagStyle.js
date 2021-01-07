@@ -9,6 +9,7 @@ const bagStyle = StyleSheet.create({
     fontSize: 34,
     color: '#222',
     fontFamily: 'Metropolis-Bold',
+    marginBottom: 15,
   },
   infosItem: {
     display: 'flex',
@@ -16,6 +17,8 @@ const bagStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    // maxWidth: 10,
+    minWidth: 120,
   },
   changeInfoSect: {
     display: 'flex',
@@ -34,15 +37,35 @@ const bagStyle = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 15,
+    borderRadius: 36,
   },
   textNumInfo: {
     fontSize: 14,
     fontFamily: 'Metropolis-Regular',
     color: '#222',
+    marginRight: 15,
+    // maxWidth: 20,
+    // flex: 1,
+    // justifyContent: 'flex-end',
   },
   bottomContainer: {
     backgroundColor: '#FFF',
     padding: 15,
+    minHeight: 10,
+  },
+  btnAuth: {
+    // minHeight: 48,
+    height: 48,
+    borderRadius: 25,
+    backgroundColor: '#DB3022',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 1,
+  },
+  btnAuthText: {
+    fontFamily: 'Metropolis-Regular',
+    color: '#FFF',
   },
 });
 

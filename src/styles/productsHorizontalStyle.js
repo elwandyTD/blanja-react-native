@@ -37,6 +37,7 @@ const productsHorizontalStyle = StyleSheet.create({
   },
   card: {
     marginRight: 15,
+    maxWidth: 148,
   },
   cardHead: {
     flex: 1,
@@ -49,6 +50,7 @@ const productsHorizontalStyle = StyleSheet.create({
     flex: 1,
     height: 184,
     width: 148,
+    maxWidth: 148,
     position: 'relative',
     overflow: 'hidden',
     borderRadius: 8,

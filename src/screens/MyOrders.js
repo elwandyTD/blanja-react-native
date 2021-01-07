@@ -12,26 +12,111 @@ export class MyOrders extends Component {
       <>
         <Navbar title=" " />
         <ScrollView style={profileStyle.container}>
-          <Text style={profileStyle.title}>My profile</Text>
+          <Text style={{...profileStyle.title, ...{marginBottom: 20}}}>
+            My Orders
+          </Text>
           <View>
-            <View>
+            <View style={profileStyle.linkCard}>
               <View style={profileStyle.linkItem}>
                 <Text style={{...styles.textLast, ...{fontSize: 16}}}>
-                  Order
+                  Order №1947034
                 </Text>
-                <Text style={styles.textFirst}>Tanggal</Text>
+                <Text style={styles.textFirst}>05-12-2019</Text>
               </View>
               <View style={styles.rowStart}>
-                <Text style={styles.textFirst}>ts: </Text>
-                <Text style={styles.textLast}>MW</Text>
+                <Text style={styles.textFirst}>Tracking number: </Text>
+                <Text style={styles.textLast}>IW3475453455</Text>
               </View>
               <View style={styles.rowStart}>
-                <Text style={styles.textFirst}>ts: </Text>
-                <Text style={styles.textLast}>MW</Text>
+                <Text style={styles.textFirst}>Quantity: </Text>
+                <Text style={styles.textLast}>3</Text>
               </View>
               <View style={styles.rowStart}>
-                <Text style={styles.textFirst}>ts: </Text>
-                <Text style={{...styles.textLast, ...{fontSize: 16}}}>MW</Text>
+                <Text style={styles.textFirst}>Total Amount: </Text>
+                <Text style={{...styles.textLast, ...{fontSize: 16}}}>
+                  122$
+                </Text>
+              </View>
+              <View style={styles.rowEnd}>
+                <Text style={{...styles.textFirst, ...{color: '#2AA952'}}}>
+                  Delivered
+                </Text>
+              </View>
+            </View>
+            <View style={profileStyle.linkCard}>
+              <View style={profileStyle.linkItem}>
+                <Text style={{...styles.textLast, ...{fontSize: 16}}}>
+                  Order №1947034
+                </Text>
+                <Text style={styles.textFirst}>05-12-2019</Text>
+              </View>
+              <View style={styles.rowStart}>
+                <Text style={styles.textFirst}>Tracking number: </Text>
+                <Text style={styles.textLast}>IW3475453455</Text>
+              </View>
+              <View style={styles.rowStart}>
+                <Text style={styles.textFirst}>Quantity: </Text>
+                <Text style={styles.textLast}>3</Text>
+              </View>
+              <View style={styles.rowStart}>
+                <Text style={styles.textFirst}>Total Amount: </Text>
+                <Text style={{...styles.textLast, ...{fontSize: 16}}}>
+                  122$
+                </Text>
+              </View>
+              <View style={styles.rowEnd}>
+                <Text style={{...styles.textFirst, ...{color: '#2AA952'}}}>
+                  Delivered
+                </Text>
+              </View>
+            </View>
+            <View style={profileStyle.linkCard}>
+              <View style={profileStyle.linkItem}>
+                <Text style={{...styles.textLast, ...{fontSize: 16}}}>
+                  Order №1947034
+                </Text>
+                <Text style={styles.textFirst}>05-12-2019</Text>
+              </View>
+              <View style={styles.rowStart}>
+                <Text style={styles.textFirst}>Tracking number: </Text>
+                <Text style={styles.textLast}>IW3475453455</Text>
+              </View>
+              <View style={styles.rowStart}>
+                <Text style={styles.textFirst}>Quantity: </Text>
+                <Text style={styles.textLast}>3</Text>
+              </View>
+              <View style={styles.rowStart}>
+                <Text style={styles.textFirst}>Total Amount: </Text>
+                <Text style={{...styles.textLast, ...{fontSize: 16}}}>
+                  122$
+                </Text>
+              </View>
+              <View style={styles.rowEnd}>
+                <Text style={{...styles.textFirst, ...{color: '#2AA952'}}}>
+                  Delivered
+                </Text>
+              </View>
+            </View>
+            <View style={profileStyle.linkCard}>
+              <View style={profileStyle.linkItem}>
+                <Text style={{...styles.textLast, ...{fontSize: 16}}}>
+                  Order №1947034
+                </Text>
+                <Text style={styles.textFirst}>05-12-2019</Text>
+              </View>
+              <View style={styles.rowStart}>
+                <Text style={styles.textFirst}>Tracking number: </Text>
+                <Text style={styles.textLast}>IW3475453455</Text>
+              </View>
+              <View style={styles.rowStart}>
+                <Text style={styles.textFirst}>Quantity: </Text>
+                <Text style={styles.textLast}>3</Text>
+              </View>
+              <View style={styles.rowStart}>
+                <Text style={styles.textFirst}>Total Amount: </Text>
+                <Text style={{...styles.textLast, ...{fontSize: 16}}}>
+                  122$
+                </Text>
               </View>
               <View style={styles.rowEnd}>
                 <Text style={{...styles.textFirst, ...{color: '#2AA952'}}}>

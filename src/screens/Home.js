@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import IconF from 'react-native-vector-icons/Feather';
+// import Config from 'react-native-config';
+// import axios from 'axios';
 import {
   Text,
   View,
@@ -9,8 +11,14 @@ import {
   SafeAreaView,
   ScrollView,
   Dimensions,
+  Button,
   StatusBar,
 } from 'react-native';
+import {
+  getProductNews,
+  getProductPopulars,
+} from '../public/redux/actionCreators/product';
+import {getCategories} from '../public/redux/actionCreators/attribute';
 
 import ProductsHorizontal from '../components/ProductsHorizontal';
 import {updateTest} from '../public/redux/actionCreators/device';
@@ -20,6 +28,44 @@ import styles from '../styles/homeStyle';
 class Home extends Component {
   state = {
     device: '',
+    productNew: {},
+    productPopular: {},
+  };
+
+  getProductNewDispatch = async () => {
+    const {dispatch} = this.props;
+    if (this.props.product.productNew.data) {
+      this.setState({
+        productNew: this.props.product.productNew.data,
+      });
+    } else {
+      await dispatch(getProductNews());
+      const {product} = this.props;
+      this.setState({
+        productNew: product.productNew.data,
+      });
+    }
+  };
+
+  getProductPopularDispacth = async () => {
+    const {dispatch} = this.props;
+    if (this.props.product.productPopular.data) {
+      this.setState({
+        productPopular: this.props.product.productPopular.data,
+      });
+    } else {
+      await dispatch(getProductPopulars());
+      const {product} = this.props;
+      this.setState({
+        productPopular: product.productPopular.data,
+      });
+    }
+  };
+
+  getCategoriesDispatch = async () => {
+    const {dispatch} = this.props;
+
+    await dispatch(getCategories());
   };
 
   dispatchUpdateDevice = async (window) => {
@@ -30,23 +76,23 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.device, 'did mount');
-    Dimensions.addEventListener('change', ({window}) => {
-      this.dispatchUpdateDevice(window);
-    });
-  }
-
-  componentDidUpdate() {
-    console.log(this.props.device, 'did update');
+    this.getProductNewDispatch();
+    this.getProductPopularDispacth();
+    this.getCategoriesDispatch();
+    // console.log(this.props.device, 'did mount');
+    // Dimensions.addEventListener('change', ({window}) => {
+    //   this.dispatchUpdateDevice(window);
+    // });
   }
 
   componentWillUnmount() {
-    Dimensions.removeEventListener('change', ({window}) => {
-      this.dispatchUpdateDevice(window);
-    });
+    // Dimensions.removeEventListener('change', ({window}) => {
+    //   this.dispatchUpdateDevice(window);
+    // });
   }
 
   render() {
+    console.log(this.state);
     const {height, width, orientation} = this.props.device;
     return (
       <SafeAreaView style={styles.container}>
@@ -84,20 +130,43 @@ class Home extends Component {
           <ProductsHorizontal
             title="New"
             subtitle="You've never seen it before!"
+            products={this.state.productNew.products}
+            link="?order=newest&sort=desc"
           />
+
           <ProductsHorizontal
             title="Popular"
             subtitle="You've never seen it before!"
+            products={this.state.productPopular.products}
+            link="?order=popular"
           />
+          {/* <Button
+            title="Sign In"
+            onPress={() => this.props.navigation.navigate('Sign In')}
+          />
+          <Button
+            title="Sign Up"
+            onPress={() => this.props.navigation.push('Sign Up')}
+          />
+          <Button
+            title="Forgot Password"
+            onPress={() => this.props.navigation.push('Forgot Password')}
+          />
+          <Button
+            title="Reset Password"
+            onPress={() => this.props.navigation.push('Reset Password')}
+          /> */}
         </ScrollView>
       </SafeAreaView>
     );
   }
 }
 
-const mapsStateToProps = ({device}) => {
+const mapsStateToProps = ({device, product, attribute}) => {
   return {
     device,
+    product,
+    attribute,
   };
 };
 

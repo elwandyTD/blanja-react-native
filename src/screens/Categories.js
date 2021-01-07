@@ -6,7 +6,10 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native';
+
 import IconF from 'react-native-vector-icons/Fontisto';
+import {connect} from 'react-redux';
+import {getCategories} from '../public/redux/actionCreators/attribute';
 
 import styles from '../styles/categoriesStyles';
 import authStyles from '../styles/authStyle';
@@ -28,8 +31,21 @@ class Cart extends Component {
     );
   };
 
+  getCategoriesDispatch = async () => {
+    const {dispatch} = this.props;
+
+    await dispatch(getCategories());
+  };
+
+  componentDidMount() {
+    this.getCategoriesDispatch();
+    // if (!this.props.attribute.data) {
+    // }
+  }
+
   render() {
-    // console.log(this.props);
+    const {data} = this.props.attribute.categories;
+    // console.log(this.props.attribute.data);
     return (
       <>
         <Header title="Categories" component={this.iconRight} />
@@ -43,41 +59,42 @@ class Cart extends Component {
             <TouchableOpacity
               style={{...authStyles.btnAuth, ...{marginTop: 0}}}
               onPress={() =>
-                this.props.navigation.navigate('Catalog', {title: 'Show All'})
+                this.props.navigation.navigate('Catalog', {
+                  title: 'Show All',
+                  link: '',
+                })
               }>
               <Text style={authStyles.btnAuthText}>VIEW ALL ITEMS</Text>
             </TouchableOpacity>
             <Text style={styles.textInfo}>Choose Category</Text>
           </View>
           <View style={styles.categoriesContainer}>
-            <TouchableOpacity
+            {data &&
+              data.map((item, i) => {
+                return (
+                  <TouchableOpacity
+                    key={i}
+                    style={styles.btnCategory}
+                    onPress={() =>
+                      this.props.navigation.navigate('Catalog', {
+                        title: item.category_name,
+                        link: '?category=' + item.category_link,
+                      })
+                    }>
+                    <Text style={styles.btnText}>{item.category_name}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            {/* <TouchableOpacity
               style={styles.btnCategory}
               onPress={() =>
                 this.props.navigation.navigate('Catalog', {title: 'Tops'})
               }>
               <Text style={styles.btnText}>Tops</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.btnCategory}>
+            </TouchableOpacity> */}
+            {/* <TouchableOpacity style={styles.btnCategory}>
               <Text style={styles.btnText}>Tops</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.btnCategory}>
-              <Text style={styles.btnText}>Tops</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.btnCategory}>
-              <Text style={styles.btnText}>Tops</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.btnCategory}>
-              <Text style={styles.btnText}>Tops</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.btnCategory}>
-              <Text style={styles.btnText}>Tops</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.btnCategory}>
-              <Text style={styles.btnText}>Tops</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.btnCategory}>
-              <Text style={styles.btnText}>Tops</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </ScrollView>
       </>
@@ -85,4 +102,10 @@ class Cart extends Component {
   }
 }
 
-export default Cart;
+const mapsStateToProps = ({attribute}) => {
+  return {
+    attribute,
+  };
+};
+
+export default connect(mapsStateToProps)(Cart);

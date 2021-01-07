@@ -8,8 +8,10 @@ import {
   StatusBar,
 } from 'react-native';
 import {AirbnbRating, BottomSheet, ListItem} from 'react-native-elements';
+import {connect} from 'react-redux';
 import IconF from 'react-native-vector-icons/Fontisto';
 import IconMI from 'react-native-vector-icons/MaterialIcons';
+import {getProducts} from '../public/redux/actionCreators/product';
 
 import stylesIcon from '../styles/categoriesStyles';
 import stylesProductHorizontal from '../styles/productsHorizontalStyle';
@@ -53,8 +55,20 @@ class Catalog extends Component {
     );
   };
 
+  getProductsDispatch = async () => {
+    const {dispatch} = this.props;
+    const {link} = this.props.route.params;
+    await dispatch(getProducts(link));
+  };
+
+  componentDidMount() {
+    this.getProductsDispatch();
+  }
+
   render() {
     const {title} = this.props.route.params;
+    const {product} = this.props.product;
+    console.log(product.data);
     return (
       <>
         <Header title=" " component={this.iconRight} color="#FFF" />
@@ -75,18 +89,59 @@ class Catalog extends Component {
               </View>
               <View style={{...styles.rowInfo, ...{marginLeft: -100}}}>
                 <IconMI name="swap-vert" size={16} color="#222" />
-                <Text style={styles.textIcon}>Price: lowest to high</Text>
+                <TouchableOpacity
+                  onPress={() => this.setState({openModal: true})}>
+                  <Text style={styles.textIcon}>Price: lowest to high</Text>
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity
-                onPress={() => this.setState({openModal: true})}>
-                <View>
-                  <Image source={MiscIcon} style={styles.filtersIcon} />
-                </View>
-              </TouchableOpacity>
+              <View>
+                <Image source={MiscIcon} style={styles.filtersIcon} />
+              </View>
             </View>
           </View>
           <View style={styles.itemsContainer}>
-            <TouchableOpacity
+            {product.data &&
+              product.data.products.map((item, i) => {
+                return (
+                  <TouchableOpacity
+                    key={i}
+                    onPress={() =>
+                      this.props.navigation.navigate('Detail', {item: item})
+                    }>
+                    <View style={styles.cardItem}>
+                      <Image
+                        source={{
+                          uri:
+                            'http://192.168.43.216:8000' +
+                            item.product_images[0].image_path,
+                        }}
+                        style={styles.cardImage}
+                      />
+                      <View style={styles.cardInfo}>
+                        <Text style={styles.cardTitle}>
+                          {item.product_title}
+                        </Text>
+                        <Text style={styles.cardBrand}>{item.brand_name}</Text>
+                        <View style={stylesProductHorizontal.starsReview}>
+                          <AirbnbRating
+                            isDisabled={true}
+                            showRating={false}
+                            size={15}
+                            starStyle={stylesProductHorizontal.starStyle}
+                          />
+                          <Text style={stylesProductHorizontal.reviewNum}>
+                            (0)
+                          </Text>
+                        </View>
+                        <Text style={styles.cardPrice}>
+                          {item.product_price}$
+                        </Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+            {/* <TouchableOpacity
               onPress={() => this.props.navigation.navigate('Detail', {id: 1})}>
               <View style={styles.cardItem}>
                 <Image source={ProductImage} style={styles.cardImage} />
@@ -105,7 +160,7 @@ class Catalog extends Component {
                   <Text style={styles.cardPrice}>34$</Text>
                 </View>
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <BottomSheet
             isVisible={this.state.openModal}
@@ -137,4 +192,10 @@ class Catalog extends Component {
   }
 }
 
-export default Catalog;
+const mapsStateToProps = ({product}) => {
+  return {
+    product,
+  };
+};
+
+export default connect(mapsStateToProps)(Catalog);

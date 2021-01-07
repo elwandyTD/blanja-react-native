@@ -17,6 +17,15 @@ const myOrdersStyle = StyleSheet.create({
     fontFamily: 'Metropolis-Regular',
     color: '#222',
   },
+  rowStart: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  rowEnd: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
 });
 
 export default myOrdersStyle;

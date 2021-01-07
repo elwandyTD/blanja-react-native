@@ -16,6 +16,8 @@ import ForgotPass from './src/screens/auth/ForgotPass';
 import ResetPass from './src/screens/auth/ResetPass';
 import DetailProduct from './src/screens/DetailProduct';
 import Checkout from './src/screens/Checkout';
+import ShippingAdress from './src/screens/ShippingAdress';
+// import MyOrders from './src/screens/MyOrders';
 
 const {store, persistor} = configureStore();
 const Stack = createStackNavigator();
@@ -34,7 +36,7 @@ const appRouter = () => {
               }}
             />
             <Stack.Screen
-              name="Login"
+              name="Sign In"
               component={Login}
               options={{
                 headerShown: false,
@@ -82,6 +84,20 @@ const appRouter = () => {
                 headerShown: false,
               }}
             />
+            <Stack.Screen
+              name="Shipping Address"
+              component={ShippingAdress}
+              options={{
+                headerShown: false,
+              }}
+            />
+            {/* <Stack.Screen
+              name="My Orders"
+              component={MyOrders}
+              options={{
+                headerShown: false,
+              }}
+            /> */}
             <Stack.Screen
               name="Checkout"
               component={Checkout}
