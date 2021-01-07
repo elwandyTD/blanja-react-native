@@ -48,10 +48,7 @@ export class Checkout extends Component {
           </View>
           <TouchableOpacity
             style={styles.btnAuth}
-            onPress={
-              () => console.log('checkout')
-              // this.props.navigation.navigate('Catalog', {title: 'Show All'})
-            }>
+            onPress={() => this.props.navigation.navigate('Success')}>
             <Text style={styles.btnAuthText}>SUBMIT ORDER</Text>
           </TouchableOpacity>
         </View>

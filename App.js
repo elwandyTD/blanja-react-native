@@ -17,6 +17,7 @@ import ResetPass from './src/screens/auth/ResetPass';
 import DetailProduct from './src/screens/DetailProduct';
 import Checkout from './src/screens/Checkout';
 import ShippingAdress from './src/screens/ShippingAdress';
+import Success from './src/screens/Success';
 // import MyOrders from './src/screens/MyOrders';
 
 const {store, persistor} = configureStore();
@@ -101,6 +102,13 @@ const appRouter = () => {
             <Stack.Screen
               name="Checkout"
               component={Checkout}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Success"
+              component={Success}
               options={{
                 headerShown: false,
               }}
