@@ -7,34 +7,61 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import IconF from 'react-native-vector-icons/Fontisto';
+import {connect} from 'react-redux';
+import {loginUser} from '../../public/redux/actionCreators/auth';
 
 import styles from '../../styles/authStyle';
 import MyHeader from '../../components/Header';
 
 export class Login extends Component {
   state = {
+    error: '',
     onTyping: false,
     user: {
-      email: '',
-      password: '',
+      user_email: '',
+      user_password: '',
     },
   };
 
   handleInput = (value, name) => {
-    // console.log(value, 25);
     this.setState({
       user: {
         ...this.state.user,
         [name]: value,
       },
     });
-    // console.log(e, name);
-    // console.log(this.state.user, 32);
-    // console.log(value);
   };
 
-  onSubmit = () => {
-    console.log(this.state.user);
+  onSubmit = async () => {
+    const {user_email, user_password} = this.state.user;
+    const empty = [user_email.trim(), user_password];
+
+    if (empty.includes('')) {
+      this.setState({
+        error: 'Please fill the form',
+      });
+    } else if (!user_email.includes('@')) {
+      this.setState({
+        error: 'Please input email',
+      });
+    } else {
+      this.setState({
+        error: '',
+      });
+      const {dispatch} = this.props;
+      await dispatch(loginUser(this.state.user));
+      const {login} = this.props.auth;
+
+      if (login.err) {
+        this.setState({
+          error: login.err,
+        });
+      }
+
+      if (login.data) {
+        this.props.navigation.replace('Home');
+      }
+    }
   };
 
   render() {
@@ -48,13 +75,14 @@ export class Login extends Component {
               We have sent an email containing a password reset instruction to
               your email. please check your email.
             </Text>
+            <Text style={styles.infoTextError}>{this.state.error}</Text>
             <View style={styles.textInput}>
               <Text style={styles.label}>Email</Text>
               <TextInput
                 style={styles.inputForm}
                 placeholder="your email ..."
                 value={this.state.user.email}
-                onChangeText={(e) => this.handleInput(e, 'email')}
+                onChangeText={(e) => this.handleInput(e, 'user_email')}
               />
             </View>
             <View style={styles.textInput}>
@@ -64,14 +92,17 @@ export class Login extends Component {
                 style={styles.inputForm}
                 placeholder="your password ..."
                 value={this.state.user.password}
-                onChangeText={(e) => this.handleInput(e, 'password')}
+                onChangeText={(e) => this.handleInput(e, 'user_password')}
               />
             </View>
             <View style={styles.rightSection}>
-              <Text style={styles.rightSecText}>
-                Forgot your password?{' '}
-                <IconF name="arrow-right-l" color="#DB3022" />
-              </Text>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.push('Forgot Password')}>
+                <Text style={styles.rightSecText}>
+                  Forgot your password?{' '}
+                  <IconF name="arrow-right-l" color="#DB3022" />
+                </Text>
+              </TouchableOpacity>
             </View>
             <TouchableOpacity style={styles.btnAuth} onPress={this.onSubmit}>
               <Text style={styles.btnAuthText}>LOGIN</Text>
@@ -83,4 +114,10 @@ export class Login extends Component {
   }
 }
 
-export default Login;
+const mapsStateToProps = ({auth}) => {
+  return {
+    auth,
+  };
+};
+
+export default connect(mapsStateToProps)(Login);

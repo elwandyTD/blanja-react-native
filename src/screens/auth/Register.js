@@ -99,10 +99,13 @@ export class Register extends Component {
               />
             </View>
             <View style={styles.rightSection}>
-              <Text style={styles.rightSecText}>
-                Already have an account?{' '}
-                <IconF name="arrow-right-l" color="#DB3022" />
-              </Text>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.replace('Sign In')}>
+                <Text style={styles.rightSecText}>
+                  Already have an account?{' '}
+                  <IconF name="arrow-right-l" color="#DB3022" />
+                </Text>
+              </TouchableOpacity>
             </View>
             <TouchableOpacity style={styles.btnAuth} onPress={this.onSubmit}>
               <Text style={styles.btnAuthText}>SIGN UP</Text>
