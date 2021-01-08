@@ -58,7 +58,7 @@ const authReducer = (prevState = initialState, action) => {
         ...prevState,
         isPending: false,
         isFulFilled: true,
-        login: action.payload.data,
+        register: action.payload.data,
       };
 
     default:

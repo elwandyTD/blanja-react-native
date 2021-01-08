@@ -20,15 +20,22 @@ export class Login extends Component {
     },
   };
 
-  // handleInput = (e) => {
-  //   const value = e.target.value;
-  //   this.setState({
-  //     auth: {
-  //       ...this.state.auth,
-  //       // [e.target]
-  //     },
-  //   });
-  // };
+  handleInput = (value, name) => {
+    // console.log(value, 25);
+    this.setState({
+      user: {
+        ...this.state.user,
+        [name]: value,
+      },
+    });
+    // console.log(e, name);
+    // console.log(this.state.user, 32);
+    // console.log(value);
+  };
+
+  onSubmit = () => {
+    console.log(this.state.user);
+  };
 
   render() {
     return (
@@ -46,6 +53,8 @@ export class Login extends Component {
               <TextInput
                 style={styles.inputForm}
                 placeholder="your email ..."
+                value={this.state.user.email}
+                onChangeText={(e) => this.handleInput(e, 'email')}
               />
             </View>
             <View style={styles.textInput}>
@@ -54,6 +63,8 @@ export class Login extends Component {
                 secureTextEntry={true}
                 style={styles.inputForm}
                 placeholder="your password ..."
+                value={this.state.user.password}
+                onChangeText={(e) => this.handleInput(e, 'password')}
               />
             </View>
             <View style={styles.rightSection}>
@@ -62,7 +73,7 @@ export class Login extends Component {
                 <IconF name="arrow-right-l" color="#DB3022" />
               </Text>
             </View>
-            <TouchableOpacity style={styles.btnAuth}>
+            <TouchableOpacity style={styles.btnAuth} onPress={this.onSubmit}>
               <Text style={styles.btnAuthText}>LOGIN</Text>
             </TouchableOpacity>
           </View>

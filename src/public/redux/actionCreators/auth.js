@@ -1,18 +1,18 @@
 import {loginUserString, registerUserString} from '../actionString';
 import axios from 'axios';
 
-const url = process.env.REACT_APP_BASE_URL;
+const url = 'http://192.168.43.216:8000';
 
 export const loginUser = (data) => {
   return {
     type: loginUserString,
-    payload: axios.post(url + '/login/customer', data),
+    payload: axios.post(url + '/auth/login/customer', data),
   };
 };
 
 export const registerUser = (data) => {
   return {
     type: registerUserString,
-    payload: axios.post(url + '/register/customer', data),
+    payload: axios.post(url + '/auth/register/customer', data),
   };
 };
