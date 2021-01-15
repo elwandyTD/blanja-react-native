@@ -217,26 +217,6 @@ class Catalog extends Component {
                   </TouchableOpacity>
                 );
               })}
-            {/* <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Detail', {id: 1})}>
-              <View style={styles.cardItem}>
-                <Image source={ProductImage} style={styles.cardImage} />
-                <View style={styles.cardInfo}>
-                  <Text style={styles.cardTitle}>Pullover</Text>
-                  <Text style={styles.cardBrand}>Mango</Text>
-                  <View style={stylesProductHorizontal.starsReview}>
-                    <AirbnbRating
-                      isDisabled={true}
-                      showRating={false}
-                      size={15}
-                      starStyle={stylesProductHorizontal.starStyle}
-                    />
-                    <Text style={stylesProductHorizontal.reviewNum}>(0)</Text>
-                  </View>
-                  <Text style={styles.cardPrice}>34$</Text>
-                </View>
-              </View>
-            </TouchableOpacity> */}
           </View>
           <BottomSheet
             isVisible={this.state.openModal}
@@ -247,7 +227,9 @@ class Catalog extends Component {
               barStyle="dark-content"
             />
             <View style={styles.bottomSheet}>
-              <Text style={styles.bottomSheetTitle}>Sort by</Text>
+              <View style={styles.bottomSheetView}>
+                <Text style={styles.bottomSheetTitle}>Sort by</Text>
+              </View>
               {this.state.list.map((l, i) => (
                 <ListItem
                   key={i}

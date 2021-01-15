@@ -102,10 +102,20 @@ const catalogStyle = StyleSheet.create({
   bottomSheet: {
     backgroundColor: 'rgba(0.5, 0.25, 0, 0.2)',
   },
+  bottomSheetView: {
+    height: 40,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFF',
+    borderTopLeftRadius: 34,
+    borderTopRightRadius: 34,
+  },
   bottomSheetTitle: {
     fontSize: 18,
     color: '#222',
     fontFamily: 'Metropolis-Regular',
+    fontWeight: 'bold',
   },
   bottomItem: {
     fontSize: 16,
