@@ -12,6 +12,26 @@ const catalogStyle = StyleSheet.create({
     fontFamily: 'Metropolis-Bold',
     color: '#222',
   },
+  tagSelect: {
+    flex: 1,
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    backgroundColor: '#222',
+    borderRadius: 29,
+    padding: 5,
+    paddingHorizontal: 15,
+    marginRight: 10,
+  },
+  textTag: {
+    color: '#FFF',
+    fontSize: 14,
+    marginRight: 10,
+  },
+  closeTag: {
+    marginRight: -5,
+  },
   filterSection: {
     flex: 1,
     display: 'flex',

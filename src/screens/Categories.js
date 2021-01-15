@@ -61,7 +61,7 @@ class Cart extends Component {
               onPress={() =>
                 this.props.navigation.navigate('Catalog', {
                   title: 'Show All',
-                  link: '',
+                  link: '?category=shoes&color=FFFFFF&size=l',
                 })
               }>
               <Text style={authStyles.btnAuthText}>VIEW ALL ITEMS</Text>

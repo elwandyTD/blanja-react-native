@@ -8,6 +8,7 @@ export const getProductString = 'GET_PRODUCT';
 
 export const loginUserString = 'LOGIN_USER';
 export const registerUserString = 'REGISTER_USER';
+export const forgotPassString = 'FORGOT_PASS';
 
 export const getCategoryString = 'GET_CATEGORY';
 

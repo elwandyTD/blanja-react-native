@@ -13,6 +13,7 @@ import IconIo from 'react-native-vector-icons/Ionicons';
 import {AirbnbRating} from 'react-native-elements';
 import {Picker} from '@react-native-picker/picker';
 
+import {getProducts} from '../public/redux/actionCreators/product';
 import productsHorizontalStyles from '../styles/productsHorizontalStyle';
 // import authStyles from '../styles/authStyle';
 import styles from '../styles/detailProductStyle';
@@ -25,6 +26,22 @@ import ProductsHorizontal from '../components/ProductsHorizontal';
 export class DetailProduct extends Component {
   state = {
     language: 'java',
+    product: {},
+  };
+
+  getDetailProduct = async () => {
+    const {id} = this.props.route.params;
+    const {dispatch} = this.props;
+
+    await dispatch(getProducts('/' + Number(id)));
+
+    const {product} = this.props.product;
+
+    if (product.data) {
+      this.setState({
+        product: product.data,
+      });
+    }
   };
 
   render() {

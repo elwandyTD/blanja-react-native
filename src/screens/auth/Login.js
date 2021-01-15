@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import IconF from 'react-native-vector-icons/Fontisto';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {connect} from 'react-redux';
 import {loginUser} from '../../public/redux/actionCreators/auth';
 
@@ -34,7 +35,7 @@ export class Login extends Component {
 
   onSubmit = async () => {
     const {user_email, user_password} = this.state.user;
-    const empty = [user_email.trim(), user_password];
+    const empty = [user_email.trim(), user_password.trim()];
 
     if (empty.includes('')) {
       this.setState({
@@ -59,12 +60,29 @@ export class Login extends Component {
       }
 
       if (login.data) {
-        this.props.navigation.replace('Home');
+        try {
+          await AsyncStorage.setItem('@user', JSON.stringify(login.data));
+        } catch (e) {
+          console.log(e);
+        }
+        // try {
+        //   const value = await AsyncStorage.getItem('@user');
+        //   if (value !== null) {
+        //     const parse = JSON.parse(value);
+        //     console.log(parse);
+        //   }
+        // } catch (e) {
+        //   console.log(e);
+        // }
+        // this.props.navigation.replace('Home');
       }
     }
   };
 
+  componentDidMount() {}
+
   render() {
+    // console.log(this.props.auth);
     return (
       <>
         <MyHeader title=" " />
@@ -106,6 +124,13 @@ export class Login extends Component {
             </View>
             <TouchableOpacity style={styles.btnAuth} onPress={this.onSubmit}>
               <Text style={styles.btnAuthText}>LOGIN</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.push('Sign Up')}
+              style={{marginTop: 10}}>
+              <Text style={{...styles.rightSecText, ...{textAlign: 'center'}}}>
+                Create new account ?
+              </Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

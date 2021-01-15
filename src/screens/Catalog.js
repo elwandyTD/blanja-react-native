@@ -55,11 +55,69 @@ class Catalog extends Component {
     );
   };
 
+  removeTag = (value) => {
+    let url = this.props.route.params.link;
+
+    if (url.includes(value)) {
+      url = url.replace(value, '');
+    }
+
+    if (url[url.length - 1] === '&') {
+      url = url.slice(0, -1);
+    }
+
+    this.props.navigation.replace('Catalog', {
+      title: url === '?' ? 'Search' : this.props.route.params.title,
+      link: url === '?' ? '' : url,
+    });
+  };
+
+  tagsSection = () => {
+    const {link} = this.props.route.params;
+    let url = '';
+    let tags = [];
+    if (link.includes('?')) {
+      url = link.substring(1);
+    } else {
+      url = link;
+    }
+    if (url !== '') {
+      const splitTag = url.split('&');
+
+      for (let i = 0; i < splitTag.length; i++) {
+        const split = splitTag[i].split('=');
+        const title = split[0];
+        const value = split[1];
+        const body = {title, value, full: splitTag[i]};
+        tags.push(body);
+      }
+
+      return (
+        <ScrollView horizontal={true} style={styles.containerTag}>
+          {tags.map((item, i) => {
+            return (
+              <View key={i} style={styles.tagSelect}>
+                <Text style={styles.textTag}>{item.value}</Text>
+                <TouchableOpacity onPress={() => this.removeTag(item.full)}>
+                  <IconMI
+                    name="close"
+                    size={13}
+                    color="#FFF"
+                    style={styles.closeTag}
+                  />
+                </TouchableOpacity>
+              </View>
+            );
+          })}
+        </ScrollView>
+      );
+    }
+  };
+
   getProductsDispatch = async () => {
     const {dispatch} = this.props;
     const {params} = this.props.route;
     await dispatch(getProducts(params.link));
-    console.log(params, 62);
   };
 
   componentDidMount() {
@@ -92,8 +150,9 @@ class Catalog extends Component {
           />
           <View style={styles.containerTop}>
             <Text style={styles.title}>
-              {params.title ? params.title : 'Search All hehe'}
+              {params.title ? params.title : 'Search All'}
             </Text>
+            {this.tagsSection()}
             <View style={styles.filterSection}>
               <View style={styles.rowInfo}>
                 <Image source={FilterIcon} style={styles.filtersIcon} />
