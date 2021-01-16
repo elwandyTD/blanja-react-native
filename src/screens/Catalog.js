@@ -18,13 +18,12 @@ import stylesProductHorizontal from '../styles/productsHorizontalStyle';
 import styles from '../styles/catalogStyle';
 import FilterIcon from '../assets/icons/filter.png';
 import MiscIcon from '../assets/icons/categories.png';
-import ProductImage from '../assets/images/product-1.png';
-
 import Header from '../components/Header';
 
 class Catalog extends Component {
   state = {
-    openModal: false,
+    query: '',
+    title: '',
     list: [
       {title: 'Popular'},
       {title: 'Newest'},
@@ -56,7 +55,7 @@ class Catalog extends Component {
   };
 
   removeTag = (value) => {
-    let url = this.props.route.params.link;
+    let url = this.state.query;
 
     if (url.includes(value)) {
       url = url.replace(value, '');
@@ -66,14 +65,14 @@ class Catalog extends Component {
       url = url.slice(0, -1);
     }
 
-    this.props.navigation.replace('Catalog', {
+    this.setState({
       title: url === '?' ? 'Search' : this.props.route.params.title,
-      link: url === '?' ? '' : url,
+      query: url === '?' ? '' : url,
     });
   };
 
   tagsSection = () => {
-    const {link} = this.props.route.params;
+    const link = this.state.query;
     let url = '';
     let tags = [];
     if (link.includes('?')) {
@@ -83,7 +82,6 @@ class Catalog extends Component {
     }
     if (url !== '') {
       const splitTag = url.split('&');
-
       for (let i = 0; i < splitTag.length; i++) {
         const split = splitTag[i].split('=');
         const title = split[0];
@@ -117,16 +115,27 @@ class Catalog extends Component {
   getProductsDispatch = async () => {
     const {dispatch} = this.props;
     const {params} = this.props.route;
+
     await dispatch(getProducts(params.link));
+    this.setState({
+      title: params.title,
+      query: params.link,
+    });
+  };
+
+  getUpdateProductsDispatch = async () => {
+    const {dispatch} = this.props;
+
+    await dispatch(getProducts(this.state.query));
   };
 
   componentDidMount() {
     this.getProductsDispatch();
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.route.params.link !== prevProps.route.params.link) {
-      this.getProductsDispatch();
+  componentDidUpdate(_, prevState) {
+    if (prevState.query !== this.state.query) {
+      this.getUpdateProductsDispatch();
     }
   }
 
@@ -150,7 +159,7 @@ class Catalog extends Component {
           />
           <View style={styles.containerTop}>
             <Text style={styles.title}>
-              {params.title ? params.title : 'Search All'}
+              {this.state.title ? this.state.title : 'Search All'}
             </Text>
             {this.tagsSection()}
             <View style={styles.filterSection}>
