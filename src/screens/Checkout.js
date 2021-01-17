@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import {Text, View, ScrollView, TouchableOpacity, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckBox from '@react-native-community/checkbox';
+import {connect} from 'react-redux';
 
 // import bagStyle from '../styles/bagStyle';
 // import authStyles from '../styles/authStyle';
+import {getActiveAddress} from '../public/redux/actionCreators/profile';
 import styles from '../styles/checkoutStyle';
 import MasterCard from '../assets/icons/mastercard.png';
 import PosIndo from '../assets/icons/pos-indonesia.png';
@@ -15,21 +17,31 @@ import Header from '../components/Header';
 export class Checkout extends Component {
   state = {
     test: false,
-    user: {},
+    address: {},
   };
 
-  getUser = async () => {
+  getActiveAddressUser = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('@user');
-      return jsonValue != null
-        ? this.setState({
-            user: JSON.parse(jsonValue),
-          })
-        : null;
+      if (jsonValue !== null) {
+        const user = JSON.parse(jsonValue);
+        const {dispatch} = this.props;
+
+        await dispatch(getActiveAddress(user.user_id, user.id_address));
+        const {active} = this.props.profile;
+
+        if (active.data) {
+          this.setState({address: active.data});
+        }
+      }
     } catch (e) {
       console.log(e);
     }
   };
+
+  componentDidMount() {
+    this.getActiveAddressUser();
+  }
 
   render() {
     return (
@@ -40,14 +52,20 @@ export class Checkout extends Component {
             <Text style={styles.titleInfo}>Shipping Addres</Text>
             <View style={styles.shippingCart}>
               <View style={styles.rowInfo}>
-                <Text style={styles.infoText}>Jane Doe</Text>
-                <Text style={{...styles.infoText, ...{color: '#DB3022'}}}>
-                  Change
+                <Text style={styles.infoText}>
+                  {this.state.address.recipient}
                 </Text>
+                <TouchableOpacity
+                  onPress={() =>
+                    this.props.navigation.navigate('Shipping Address')
+                  }>
+                  <Text style={{...styles.infoText, ...{color: '#DB3022'}}}>
+                    Change
+                  </Text>
+                </TouchableOpacity>
               </View>
-              <Text style={styles.infoText}>
-                3 Newbridge Court Chino Hills, CA 91709, United States
-              </Text>
+              <Text style={styles.infoText}>{this.state.address.address}</Text>
+              {/* <Text style={styles.infoText}>{this.state.address.city}</Text> */}
             </View>
             <View style={styles.infoPayment}>
               <Text style={styles.titleInfo}>Payment</Text>
@@ -127,4 +145,10 @@ export class Checkout extends Component {
   }
 }
 
-export default Checkout;
+const mapsStateToProps = ({profile}) => {
+  return {
+    profile,
+  };
+};
+
+export default connect(mapsStateToProps)(Checkout);

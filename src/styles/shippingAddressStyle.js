@@ -11,7 +11,8 @@ const shippingAddressStyle = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 1,
+    borderWidth: 1.5,
+    borderColor: '#222',
   },
   btnAddressText: {
     fontFamily: 'Metropolis-Regular',

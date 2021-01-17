@@ -11,6 +11,12 @@ export const registerUserString = 'REGISTER_USER';
 export const forgotPassString = 'FORGOT_PASS';
 export const logoutUserString = 'LOGOUT_USER';
 
+export const getActiveAddressString = 'GET_ACTIVE_ADDRESS';
+export const getUserAddressString = 'GET_USER_ADDRESS';
+export const addUserAddressString = 'ADD_USER_ADDRESS';
+export const updateUserAddressString = 'UPDATE_USER_ADDRESS';
+export const deleteUserAddressString = 'DELETE_USER_ADDRESS';
+
 export const getCategoryString = 'GET_CATEGORY';
 
 export const pending = '_PENDING';

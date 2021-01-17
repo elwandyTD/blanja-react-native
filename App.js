@@ -18,6 +18,7 @@ import DetailProduct from './src/screens/DetailProduct';
 import Checkout from './src/screens/Checkout';
 import ShippingAdress from './src/screens/ShippingAdress';
 import Success from './src/screens/Success';
+import AddShippingAddress from './src/screens/AddShippingAddress';
 // import MyOrders from './src/screens/MyOrders';
 
 const {store, persistor} = configureStore();
@@ -109,6 +110,13 @@ const appRouter = () => {
             <Stack.Screen
               name="Success"
               component={Success}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Add Shipping Address"
+              component={AddShippingAddress}
               options={{
                 headerShown: false,
               }}
