@@ -62,6 +62,8 @@ export class Login extends Component {
       if (login.data) {
         try {
           await AsyncStorage.setItem('@user', JSON.stringify(login.data));
+
+          this.props.navigation.replace('Home');
         } catch (e) {
           console.log(e);
         }

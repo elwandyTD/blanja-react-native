@@ -2,6 +2,7 @@ import {
   loginUserString,
   registerUserString,
   forgotPassString,
+  logoutUserString,
   pending,
   rejected,
   fulfilled,
@@ -9,6 +10,7 @@ import {
 
 const initialState = {
   login: {},
+  logout: {},
   register: {},
   forgot: {},
   isPending: false,
@@ -83,6 +85,28 @@ const authReducer = (prevState = initialState, action) => {
         isPending: false,
         isFulFilled: true,
         forgot: action.payload.data,
+      };
+
+    case logoutUserString + pending:
+      return {
+        ...prevState,
+        isPending: true,
+        isRejected: false,
+        isFulFilled: false,
+      };
+    case logoutUserString + rejected:
+      return {
+        ...prevState,
+        isPending: false,
+        isRejected: true,
+        err: action.payload.data,
+      };
+    case logoutUserString + fulfilled:
+      return {
+        ...prevState,
+        isPending: false,
+        isFulFilled: true,
+        logout: action.payload.data,
       };
 
     default:

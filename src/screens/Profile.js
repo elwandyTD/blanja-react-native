@@ -8,7 +8,10 @@ import {
   Button,
 } from 'react-native';
 import IconF from 'react-native-vector-icons/Fontisto';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {connect} from 'react-redux';
 
+import {logoutUser} from '../public/redux/actionCreators/auth';
 import ProfileImg from '../assets/images/profile.png';
 import categoriesStyles from '../styles/categoriesStyles';
 import styles from '../styles/profileStyle';
@@ -16,6 +19,10 @@ import styles from '../styles/profileStyle';
 import Header from '../components/Header';
 
 class Profile extends Component {
+  state = {
+    user: {},
+  };
+
   iconRight = () => {
     return (
       <TouchableOpacity
@@ -31,7 +38,50 @@ class Profile extends Component {
     );
   };
 
+  setUserState = async () => {
+    try {
+      if (!this.state.user.user_email) {
+        console.log(this.props.navigation);
+        // this.props.navigation.replace('Login');
+        // console.log('tidak ada');
+      }
+
+      const jsonValue = await AsyncStorage.getItem('@user');
+      return jsonValue != null
+        ? this.setState({user: JSON.parse(jsonValue)})
+        : this.setState({user: ''});
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  logoutUser = async () => {
+    const {dispatch} = this.props;
+
+    if (this.state.user.user_email) {
+      await dispatch(logoutUser(this.state.user.token));
+      const {logout} = this.props.auth;
+
+      if (logout.isLogout) {
+        try {
+          await AsyncStorage.removeItem('@user');
+        } catch (e) {
+          console.log(e);
+        }
+      }
+
+      this.setUserState();
+    } else {
+      console.log(this.state.user);
+    }
+  };
+
+  componentDidMount() {
+    this.setUserState();
+  }
+
   render() {
+    console.log(this.state.user);
     return (
       <>
         <Header title=" " showPop={false} component={this.iconRight} />
@@ -40,7 +90,7 @@ class Profile extends Component {
           <View style={styles.rowInfo}>
             <Image source={ProfileImg} style={styles.imageUser} />
             <View style={styles.rowUser}>
-              <Text style={styles.username}>Matilda Brown</Text>
+              <Text style={styles.username}>Matilda</Text>
               <Text style={styles.email}>matildabrown@mail.com</Text>
             </View>
           </View>
@@ -92,6 +142,7 @@ class Profile extends Component {
               title="Reset Password"
               onPress={() => this.props.navigation.push('Reset Password')}
             />
+            <Button title="Logout" onPress={this.logoutUser} />
           </View>
         </ScrollView>
       </>
@@ -99,4 +150,10 @@ class Profile extends Component {
   }
 }
 
-export default Profile;
+const mapsStateToProps = ({auth}) => {
+  return {
+    auth,
+  };
+};
+
+export default connect(mapsStateToProps)(Profile);

@@ -2,6 +2,7 @@ import {
   loginUserString,
   registerUserString,
   forgotPassString,
+  logoutUserString,
 } from '../actionString';
 import axios from 'axios';
 
@@ -25,5 +26,16 @@ export const forgotPassword = (data) => {
   return {
     type: forgotPassString,
     payload: axios.post(url + '/auth/send_email/customer', data),
+  };
+};
+
+export const logoutUser = (token) => {
+  return {
+    type: logoutUserString,
+    payload: axios.delete(url + '/auth/logout', {
+      headers: {
+        'x-access-token': 'Bearer ' + token,
+      },
+    }),
   };
 };

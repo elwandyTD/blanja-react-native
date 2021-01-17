@@ -1,13 +1,36 @@
 import React, {Component} from 'react';
-import {Text, View, ScrollView, TouchableOpacity} from 'react-native';
+import {Text, View, ScrollView, TouchableOpacity, Image} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import CheckBox from '@react-native-community/checkbox';
 
-import bagStyle from '../styles/bagStyle';
-import authStyles from '../styles/authStyle';
+// import bagStyle from '../styles/bagStyle';
+// import authStyles from '../styles/authStyle';
 import styles from '../styles/checkoutStyle';
+import MasterCard from '../assets/icons/mastercard.png';
+import PosIndo from '../assets/icons/pos-indonesia.png';
+import GoPay from '../assets/icons/gopay.png';
 
 import Header from '../components/Header';
 
 export class Checkout extends Component {
+  state = {
+    test: false,
+    user: {},
+  };
+
+  getUser = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@user');
+      return jsonValue != null
+        ? this.setState({
+            user: JSON.parse(jsonValue),
+          })
+        : null;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   render() {
     return (
       <>
@@ -28,6 +51,53 @@ export class Checkout extends Component {
             </View>
             <View style={styles.infoPayment}>
               <Text style={styles.titleInfo}>Payment</Text>
+              <View style={styles.containerPayment}>
+                <View style={styles.paymentItem}>
+                  <View style={styles.paymentSec}>
+                    <View style={styles.paymentSecImg}>
+                      <Image source={MasterCard} style={styles.paymentImg1} />
+                    </View>
+                    <Text style={styles.paymentText}>Mastercard</Text>
+                  </View>
+                  <CheckBox
+                    disabled={false}
+                    value={this.state.test}
+                    onValueChange={(newValue) =>
+                      this.setState({test: newValue})
+                    }
+                  />
+                </View>
+                <View style={styles.paymentItem}>
+                  <View style={styles.paymentSec}>
+                    <View style={styles.paymentSecImg}>
+                      <Image source={PosIndo} style={styles.paymentImg2} />
+                    </View>
+                    <Text style={styles.paymentText}>Pos Indonesia</Text>
+                  </View>
+                  <CheckBox
+                    disabled={false}
+                    value={this.state.test}
+                    onValueChange={(newValue) =>
+                      this.setState({test: newValue})
+                    }
+                  />
+                </View>
+                <View style={styles.paymentItem}>
+                  <View style={styles.paymentSec}>
+                    <View style={styles.paymentSecImg}>
+                      <Image source={GoPay} style={styles.paymentImg3} />
+                    </View>
+                    <Text style={styles.paymentText}>Gopay</Text>
+                  </View>
+                  <CheckBox
+                    disabled={false}
+                    value={this.state.test}
+                    onValueChange={(newValue) =>
+                      this.setState({test: newValue})
+                    }
+                  />
+                </View>
+              </View>
             </View>
           </View>
         </ScrollView>
