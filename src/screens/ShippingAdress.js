@@ -69,6 +69,7 @@ export class ShippingAdress extends Component {
             onPress={() =>
               this.props.navigation.push('Add Shipping Address', {
                 id: this.state.user.user_id,
+                type: 'Insert',
               })
             }
             style={styles.btnAddress}>

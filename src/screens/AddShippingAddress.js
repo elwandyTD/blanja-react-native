@@ -45,19 +45,57 @@ export class AddShippingAddress extends Component {
 
   onSubmit = async () => {
     const {dispatch} = this.props;
+    const {type, item} = this.props.route.params;
+    const address = this.state.address;
+    if (type === 'Insert') {
+      await dispatch(addUserAddress(address));
+      const {insert} = this.props.profile;
 
-    await dispatch(addUserAddress(this.state.address));
-    const {insert} = this.props.profile;
+      if (insert.status === 200) {
+        this.props.navigation.replace('Shipping Address');
+      }
+    } else {
+      if (!address.title) {
+        delete address.title;
+      }
+      if (!address.recipient) {
+        delete address.recipient;
+      }
+      if (!address.recipient_number) {
+        delete address.recipient_number;
+      }
+      if (!address) {
+        delete address.address;
+      }
+      if (!address.city) {
+        delete address.city;
+      }
+      if (!address.province) {
+        delete address.province;
+      }
+      if (!address.zip_code) {
+        delete address.zip_code;
+      }
+      if (!address.country) {
+        delete address.country;
+      }
 
-    if (insert.status === 200) {
-      this.props.navigation.replace('Shipping Address');
+      await dispatch(updateUserAddress(item.id, address));
+      const {update} = this.props.profile;
+
+      if (update.status === 200) {
+        this.props.navigation.replace('Shipping Address');
+      }
     }
   };
 
   render() {
+    const {type, item} = this.props.route.params;
     return (
       <>
-        <MyHeader title="Add Shipping Address" />
+        <MyHeader
+          title={`${type === 'Insert' ? 'Adding' : 'Change'} Shipping Address`}
+        />
         <ScrollView style={styles.container}>
           {/* <View style={authStyle.formSection}> */}
           {/* <Text style={authStyle.infoTextError}>{this.state.error}</Text> */}
@@ -65,7 +103,7 @@ export class AddShippingAddress extends Component {
             <Text style={authStyle.label}>Save address as</Text>
             <TextInput
               style={authStyle.inputForm}
-              placeholder="address name ..."
+              placeholder={item.title ? item.title : 'address name ...'}
               value={this.state.address.title}
               onChangeText={(e) => this.handleInput(e, 'title')}
             />
@@ -74,7 +112,7 @@ export class AddShippingAddress extends Component {
             <Text style={authStyle.label}>Recipient name</Text>
             <TextInput
               style={authStyle.inputForm}
-              placeholder="person name ..."
+              placeholder={item.recipient ? item.recipient : 'person name ...'}
               value={this.state.address.recipient}
               onChangeText={(e) => this.handleInput(e, 'recipient')}
             />
@@ -83,7 +121,11 @@ export class AddShippingAddress extends Component {
             <Text style={authStyle.label}>Recipient number</Text>
             <TextInput
               style={authStyle.inputForm}
-              placeholder="person number ..."
+              placeholder={
+                item.recipient_number
+                  ? item.recipient_number
+                  : 'person number ...'
+              }
               keyboardType="numeric"
               value={this.state.address.recipient_number}
               onChangeText={(e) => this.handleInput(e, 'recipient_number')}
@@ -93,7 +135,7 @@ export class AddShippingAddress extends Component {
             <Text style={authStyle.label}>Full address</Text>
             <TextInput
               style={authStyle.inputForm}
-              placeholder="full address ..."
+              placeholder={item.address ? item.address : 'full address ...'}
               value={this.state.address.address}
               onChangeText={(e) => this.handleInput(e, 'address')}
             />
@@ -102,7 +144,7 @@ export class AddShippingAddress extends Component {
             <Text style={authStyle.label}>City</Text>
             <TextInput
               style={authStyle.inputForm}
-              placeholder="city name ..."
+              placeholder={item.city ? item.city : 'city name ...'}
               value={this.state.address.city}
               onChangeText={(e) => this.handleInput(e, 'city')}
             />
@@ -111,7 +153,9 @@ export class AddShippingAddress extends Component {
             <Text style={authStyle.label}>State/Province/Region</Text>
             <TextInput
               style={authStyle.inputForm}
-              placeholder="your state/province ..."
+              placeholder={
+                item.province ? item.province : 'your state/province ...'
+              }
               value={this.state.address.province}
               onChangeText={(e) => this.handleInput(e, 'province')}
             />
@@ -120,7 +164,7 @@ export class AddShippingAddress extends Component {
             <Text style={authStyle.label}>Zip Code (Postal Code)</Text>
             <TextInput
               style={authStyle.inputForm}
-              placeholder="your zip code ..."
+              placeholder={item.zip_code ? item.zip_code : 'your zip code ...'}
               keyboardType="numeric"
               value={this.state.address.zip_code}
               onChangeText={(e) => this.handleInput(e, 'zip_code')}
@@ -129,7 +173,9 @@ export class AddShippingAddress extends Component {
           <View style={authStyle.textInput}>
             <Text style={authStyle.label}>Country</Text>
             <Picker
-              selectedValue={this.state.address.country}
+              selectedValue={
+                item.country ? item.country : this.state.address.country
+              }
               // style={styles.secOpt}
               onValueChange={(itemValue, _) =>
                 this.setState({

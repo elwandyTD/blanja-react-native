@@ -2,6 +2,7 @@ import {
   getProductString,
   getProductNewString,
   getProductPopularString,
+  getSingleProductString,
 } from '../actionString';
 // import env from 'react-native-config';
 import axios from 'axios';
@@ -15,6 +16,13 @@ export const getProducts = (custom = '') => {
   return {
     type: getProductString,
     payload: axios.get(url + '/product' + custom),
+  };
+};
+
+export const getSingleProduct = (id) => {
+  return {
+    type: getSingleProductString,
+    payload: axios.get(url + '/product/' + id),
   };
 };
 

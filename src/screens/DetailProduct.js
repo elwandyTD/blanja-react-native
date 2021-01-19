@@ -8,12 +8,13 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {connect} from 'react-redux';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import {AirbnbRating} from 'react-native-elements';
 import {Picker} from '@react-native-picker/picker';
 
-import {getProducts} from '../public/redux/actionCreators/product';
+import {getSingleProduct} from '../public/redux/actionCreators/product';
 import productsHorizontalStyles from '../styles/productsHorizontalStyle';
 // import authStyles from '../styles/authStyle';
 import styles from '../styles/detailProductStyle';
@@ -26,31 +27,50 @@ import ProductsHorizontal from '../components/ProductsHorizontal';
 export class DetailProduct extends Component {
   state = {
     language: 'java',
+    size: '',
+    color: '',
+    qty: 0,
     product: {},
+    items: {},
+  };
+
+  getItems = async () => {
+    const items = await AsyncStorage.getItem('@cart');
+    if (items !== null) {
+      this.setState({
+        items: JSON.parse(items),
+      });
+    }
   };
 
   getDetailProduct = async () => {
     const {id} = this.props.route.params;
     const {dispatch} = this.props;
 
-    await dispatch(getProducts('/' + Number(id)));
+    await dispatch(getSingleProduct(Number(id)));
 
-    const {product} = this.props.product;
+    const {singleProduct} = this.props.product;
 
-    if (product.data) {
+    if (singleProduct.data) {
       this.setState({
-        product: product.data,
+        product: singleProduct.data[0],
       });
     }
   };
 
+  componentDidMount() {
+    this.getDetailProduct();
+  }
+
   render() {
-    const {item} = this.props.route.params;
     const {products} = this.props.product.productNew.data;
-    // console.log(this.props);
+    const {isPending} = this.props.product;
+
     return (
       <>
-        <Header title="Short dress" />
+        <Header
+          title={!isPending ? this.state.product.category_name : 'Loading'}
+        />
         <ScrollView style={styles.container}>
           <StatusBar
             translucent
@@ -58,22 +78,19 @@ export class DetailProduct extends Component {
             barStyle="dark-content"
           />
           <ScrollView horizontal={true} style={styles.containerHorizontal}>
-            {/* <View style={styles.imgWrapper}>
-              <ImageBackground source={Images} style={styles.img} />
-            </View> */}
-            {item.product_images.map((image, i) => {
-              // console.log(image);
-              return (
-                <Image
-                  key={i}
-                  source={{
-                    uri: 'http://192.168.43.216:8000' + image.image_path,
-                  }}
-                  style={styles.img}
-                />
-              );
-            })}
-            {/* <Image source={Images} style={styles.img} /> */}
+            {!isPending &&
+              this.state.product.product_images &&
+              this.state.product.product_images.map((image, i) => {
+                return (
+                  <Image
+                    key={i}
+                    source={{
+                      uri: 'http://192.168.43.216:8000' + image.image_path,
+                    }}
+                    style={styles.img}
+                  />
+                );
+              })}
           </ScrollView>
           <View style={styles.containerThree}>
             <Picker
@@ -82,9 +99,17 @@ export class DetailProduct extends Component {
               onValueChange={(itemValue, _) =>
                 this.setState({language: itemValue})
               }>
-              <Picker.Item label="S" value="java" />
-              <Picker.Item label="M" value="js" />
-              <Picker.Item label="XL" value="js" />
+              {!isPending &&
+                this.state.product.product_sizes &&
+                this.state.product.product_sizes.map((size, i) => {
+                  return (
+                    <Picker.Item
+                      key={i}
+                      label={size.size_code.toUpperCase()}
+                      value={size.size_code}
+                    />
+                  );
+                })}
             </Picker>
             <Picker
               selectedValue={this.state.language}
@@ -92,11 +117,17 @@ export class DetailProduct extends Component {
               onValueChange={(itemValue, _) =>
                 this.setState({language: itemValue})
               }>
-              <Picker.Item label="White" value="java" />
-              <Picker.Item label="Black" value="js" />
-              <Picker.Item label="Green" value="js" />
-              <Picker.Item label="Blue" value="js" />
-              <Picker.Item label="Red" value="js" />
+              {!isPending &&
+                this.state.product.product_colors &&
+                this.state.product.product_colors.map((color, i) => {
+                  return (
+                    <Picker.Item
+                      key={i}
+                      label={color.color_name}
+                      value={color.color_name}
+                    />
+                  );
+                })}
             </Picker>
             <View style={styles.center}>
               <IconIo name="heart" color="#DB3022" size={20} />
@@ -105,12 +136,14 @@ export class DetailProduct extends Component {
           <View style={styles.containerOne}>
             <View style={styles.infoSect}>
               <Text style={{...styles.itemTitle, ...{fontWeight: 'bold'}}}>
-                {item.product_title}
+                {!isPending ? this.state.product.product_title : 'Loading'}
               </Text>
-              <Text style={styles.itemTitle}>${item.product_price}</Text>
+              <Text style={styles.itemTitle}>
+                ${!isPending ? this.state.product.product_price : 0}
+              </Text>
             </View>
             <Text style={productsHorizontalStyles.subtitle}>
-              {item.brand_name}
+              {!isPending && this.state.product.brand_name}
             </Text>
             <View style={productsHorizontalStyles.starsReview}>
               <AirbnbRating
@@ -118,12 +151,17 @@ export class DetailProduct extends Component {
                 showRating={false}
                 size={15}
                 starStyle={productsHorizontalStyles.starStyle}
+                defaultRating={
+                  !isPending ? Math.floor(this.state.product.product_rating) : 0
+                }
               />
               <Text style={productsHorizontalStyles.reviewNum}>
-                ({item.review_user})
+                ({!isPending && this.state.product.review_user})
               </Text>
             </View>
-            <Text style={styles.itemDesc}>{item.product_description}</Text>
+            <Text style={styles.itemDesc}>
+              {!isPending && this.state.product.product_description}
+            </Text>
           </View>
           <View style={styles.listSect}>
             <TouchableOpacity>
@@ -140,7 +178,9 @@ export class DetailProduct extends Component {
           <View style={styles.containerOne}>
             <View style={styles.rowOne}>
               <Text style={styles.textNext}>You can also like this</Text>
-              <Text style={productsHorizontalStyles.subtitle}>12 items</Text>
+              <Text style={productsHorizontalStyles.subtitle}>
+                {products.length} items
+              </Text>
             </View>
           </View>
           <ProductsHorizontal products={products} justList={true} />

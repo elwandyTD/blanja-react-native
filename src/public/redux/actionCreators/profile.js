@@ -33,9 +33,9 @@ export const addUserAddress = (data) => {
   };
 };
 
-export const updateUserAddress = (data) => {
+export const updateUserAddress = (id, data) => {
   return {
     type: updateUserAddressString,
-    payload: axios.patch(url + '/attribute/address', data),
+    payload: axios.patch(url + '/attribute/address/' + id, data),
   };
 };
