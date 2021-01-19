@@ -62,6 +62,12 @@ export class DetailProduct extends Component {
     this.getDetailProduct();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.route.params.id !== this.props.route.params.id) {
+      this.getDetailProduct();
+    }
+  }
+
   render() {
     const {products} = this.props.product.productNew.data;
     const {isPending} = this.props.product;
