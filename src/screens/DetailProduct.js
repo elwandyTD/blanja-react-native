@@ -16,17 +16,13 @@ import {Picker} from '@react-native-picker/picker';
 
 import {getSingleProduct} from '../public/redux/actionCreators/product';
 import productsHorizontalStyles from '../styles/productsHorizontalStyle';
-// import authStyles from '../styles/authStyle';
 import styles from '../styles/detailProductStyle';
 
 import Header from '../components/Header';
 import ProductsHorizontal from '../components/ProductsHorizontal';
-// import Images from '../assets/images/product-1.png';
-// import Images1 from '../assets/images/product-2.png';
 
 export class DetailProduct extends Component {
   state = {
-    language: 'java',
     size: '',
     color: '',
     qty: 0,
@@ -35,12 +31,14 @@ export class DetailProduct extends Component {
   };
 
   getItems = async () => {
-    const items = await AsyncStorage.getItem('@cart');
+    // await AsyncStorage.setItem('@bag', JSON.stringify([]));
+    const items = await AsyncStorage.getItem('@bag');
     if (items !== null) {
       this.setState({
         items: JSON.parse(items),
       });
     }
+    // console.log(this.state.items);
   };
 
   getDetailProduct = async () => {
@@ -50,15 +48,55 @@ export class DetailProduct extends Component {
     await dispatch(getSingleProduct(Number(id)));
 
     const {singleProduct} = this.props.product;
+    const product = singleProduct.data[0];
 
     if (singleProduct.data) {
       this.setState({
-        product: singleProduct.data[0],
+        product,
+        size: product.product_sizes[0].size_code,
+        color: product.product_colors[0].color_name,
       });
     }
   };
 
+  addToBag = async () => {
+    const isInBag = this.state.items.findIndex(
+      (item) =>
+        item.product_id === this.state.product.product_id &&
+        item.color === this.state.color &&
+        item.size === this.state.size,
+    );
+
+    if (isInBag >= 0) {
+      const items = this.state.items;
+      items[isInBag].qty += 1;
+
+      await AsyncStorage.setItem('@bag', JSON.stringify(items));
+    } else {
+      const body = {
+        product_id: this.state.product.product_id,
+        product_title: this.state.product.product_title,
+        product_price: this.state.product.product_price,
+        brand_name: this.state.product.brand_name,
+        product_rating: this.state.product.product_rating,
+        review_user: this.state.product.review_user,
+        color: this.state.color,
+        size: this.state.size,
+        qty: this.state.qty + 1,
+        img: this.state.product.product_images[0].image_path,
+      };
+
+      await AsyncStorage.setItem(
+        '@bag',
+        JSON.stringify([...this.state.items, body]),
+      );
+    }
+
+    this.getItems();
+  };
+
   componentDidMount() {
+    this.getItems();
     this.getDetailProduct();
   }
 
@@ -100,10 +138,10 @@ export class DetailProduct extends Component {
           </ScrollView>
           <View style={styles.containerThree}>
             <Picker
-              selectedValue={this.state.language}
+              selectedValue={this.state.size}
               style={styles.secOpt}
               onValueChange={(itemValue, _) =>
-                this.setState({language: itemValue})
+                this.setState({size: itemValue})
               }>
               {!isPending &&
                 this.state.product.product_sizes &&
@@ -118,10 +156,10 @@ export class DetailProduct extends Component {
                 })}
             </Picker>
             <Picker
-              selectedValue={this.state.language}
+              selectedValue={this.state.color}
               style={styles.secOpt}
               onValueChange={(itemValue, _) =>
-                this.setState({language: itemValue})
+                this.setState({color: itemValue})
               }>
               {!isPending &&
                 this.state.product.product_colors &&
@@ -192,7 +230,7 @@ export class DetailProduct extends Component {
           <ProductsHorizontal products={products} justList={true} />
         </ScrollView>
         <View style={styles.containerTwo}>
-          <TouchableOpacity style={styles.btnAuth}>
+          <TouchableOpacity onPress={this.addToBag} style={styles.btnAuth}>
             <Text style={styles.btnAuthText}>ADD TO CART</Text>
           </TouchableOpacity>
         </View>

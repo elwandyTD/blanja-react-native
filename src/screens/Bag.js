@@ -16,9 +16,13 @@ import styles from '../styles/bagStyle';
 import ProductImage from '../assets/images/product-1.png';
 import Header from '../components/Header';
 
-import authStyles from '../styles/authStyle';
+// import authStyles from '../styles/authStyle';
 
 export class Bag extends Component {
+  state = {
+    items: [],
+  };
+
   iconRight = () => {
     return (
       <TouchableOpacity
@@ -30,6 +34,48 @@ export class Bag extends Component {
           style={categoriesStyles.iconRight}
           color="#222222"
         />
+      </TouchableOpacity>
+    );
+  };
+
+  getItems = async () => {};
+
+  cardItem = () => {
+    let qty = 1;
+
+    return (
+      <TouchableOpacity onPress={() => console.log('Tet')}>
+        <View style={catalogStyle.cardItem}>
+          <Image source={ProductImage} style={catalogStyle.cardImage} />
+          <View style={catalogStyle.cardInfo}>
+            <Text style={catalogStyle.cardTitle}>Pullover</Text>
+            <View style={styles.infosItem}>
+              <Text style={catalogStyle.cardBrand}>Mango: </Text>
+              <Text style={catalogStyle.cardBrand}>Gray</Text>
+              <Text style={catalogStyle.cardBrand}>Size: </Text>
+              <Text style={catalogStyle.cardBrand}>Mango</Text>
+            </View>
+            <View style={styles.changeInfoSect}>
+              <View style={styles.infosItem}>
+                <TouchableOpacity
+                  style={styles.btnNum}
+                  onPress={() => {
+                    if (qty !== 1) {
+                      qty--;
+                      console.log('kurang');
+                    }
+                  }}>
+                  <Text style={styles.textBtnNum}>-</Text>
+                </TouchableOpacity>
+                <Text style={styles.textNumInfo}>{qty}</Text>
+                <TouchableOpacity style={styles.btnNum} onPress={() => qty++}>
+                  <Text style={styles.textBtnNum}>+</Text>
+                </TouchableOpacity>
+              </View>
+              <Text style={catalogStyle.textNumInfo}>34$</Text>
+            </View>
+          </View>
+        </View>
       </TouchableOpacity>
     );
   };
@@ -46,7 +92,8 @@ export class Bag extends Component {
           />
           <Text style={styles.titleBag}>My Bag</Text>
           <View style={styles.itemsContainer}>
-            <TouchableOpacity onPress={() => console.log('Tet')}>
+            {this.cardItem()}
+            {/* <TouchableOpacity onPress={() => console.log('Tet')}>
               <View style={catalogStyle.cardItem}>
                 <Image source={ProductImage} style={catalogStyle.cardImage} />
                 <View style={catalogStyle.cardInfo}>
@@ -58,7 +105,6 @@ export class Bag extends Component {
                     <Text style={catalogStyle.cardBrand}>Mango</Text>
                   </View>
                   <View style={styles.changeInfoSect}>
-                    {/* <View style={styles.changeNum}> */}
                     <View style={styles.infosItem}>
                       <TouchableOpacity style={styles.btnNum}>
                         <Text style={styles.textBtnNum}>-</Text>
@@ -72,88 +118,7 @@ export class Bag extends Component {
                   </View>
                 </View>
               </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log('Tet')}>
-              <View style={catalogStyle.cardItem}>
-                <Image source={ProductImage} style={catalogStyle.cardImage} />
-                <View style={catalogStyle.cardInfo}>
-                  <Text style={catalogStyle.cardTitle}>Pullover</Text>
-                  <View style={styles.infosItem}>
-                    <Text style={catalogStyle.cardBrand}>Mango: </Text>
-                    <Text style={catalogStyle.cardBrand}>Gray</Text>
-                    <Text style={catalogStyle.cardBrand}>Size: </Text>
-                    <Text style={catalogStyle.cardBrand}>Mango</Text>
-                  </View>
-                  <View style={styles.changeInfoSect}>
-                    {/* <View style={styles.changeNum}> */}
-                    <View style={styles.infosItem}>
-                      <TouchableOpacity style={styles.btnNum}>
-                        <Text style={styles.textBtnNum}>-</Text>
-                      </TouchableOpacity>
-                      <Text style={styles.textNumInfo}>1</Text>
-                      <TouchableOpacity style={styles.btnNum}>
-                        <Text style={styles.textBtnNum}>+</Text>
-                      </TouchableOpacity>
-                    </View>
-                    <Text style={catalogStyle.textNumInfo}>34$</Text>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log('Tet')}>
-              <View style={catalogStyle.cardItem}>
-                <Image source={ProductImage} style={catalogStyle.cardImage} />
-                <View style={catalogStyle.cardInfo}>
-                  <Text style={catalogStyle.cardTitle}>Pullover</Text>
-                  <View style={styles.infosItem}>
-                    <Text style={catalogStyle.cardBrand}>Mango: </Text>
-                    <Text style={catalogStyle.cardBrand}>Gray</Text>
-                    <Text style={catalogStyle.cardBrand}>Size: </Text>
-                    <Text style={catalogStyle.cardBrand}>Mango</Text>
-                  </View>
-                  <View style={styles.changeInfoSect}>
-                    {/* <View style={styles.changeNum}> */}
-                    <View style={styles.infosItem}>
-                      <TouchableOpacity style={styles.btnNum}>
-                        <Text style={styles.textBtnNum}>-</Text>
-                      </TouchableOpacity>
-                      <Text style={styles.textNumInfo}>1</Text>
-                      <TouchableOpacity style={styles.btnNum}>
-                        <Text style={styles.textBtnNum}>+</Text>
-                      </TouchableOpacity>
-                    </View>
-                    <Text style={catalogStyle.textNumInfo}>34$</Text>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log('test')}>
-              <View style={catalogStyle.cardItem}>
-                <Image source={ProductImage} style={catalogStyle.cardImage} />
-                <View style={catalogStyle.cardInfo}>
-                  <Text style={catalogStyle.cardTitle}>Pullover</Text>
-                  <View style={styles.infosItem}>
-                    <Text style={catalogStyle.cardBrand}>Mango: </Text>
-                    <Text style={catalogStyle.cardBrand}>Gray</Text>
-                    <Text style={catalogStyle.cardBrand}>Size: </Text>
-                    <Text style={catalogStyle.cardBrand}>Mango</Text>
-                  </View>
-                  <View style={styles.changeInfoSect}>
-                    {/* <View style={styles.changeNum}> */}
-                    <View style={styles.infosItem}>
-                      <TouchableOpacity style={styles.btnNum}>
-                        <Text style={styles.textBtnNum}>-</Text>
-                      </TouchableOpacity>
-                      <Text style={styles.textNumInfo}>1</Text>
-                      <TouchableOpacity style={styles.btnNum}>
-                        <Text style={styles.textBtnNum}>+</Text>
-                      </TouchableOpacity>
-                    </View>
-                    <Text style={catalogStyle.textNumInfo}>34$</Text>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </ScrollView>
         <View style={styles.bottomContainer}>

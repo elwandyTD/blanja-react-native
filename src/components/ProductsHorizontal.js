@@ -63,7 +63,7 @@ const ProductsHorizontal = ({
                 key={i}
                 onPress={() =>
                   navigation.navigate('Detail', {
-                    item: item,
+                    // item: item,
                     id: item.product_id,
                   })
                 }>
