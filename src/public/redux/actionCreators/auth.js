@@ -8,17 +8,17 @@ import axios from 'axios';
 
 const url = 'http://192.168.43.216:8000';
 
-export const loginUser = (data) => {
+export const loginUser = (data, type) => {
   return {
     type: loginUserString,
-    payload: axios.post(url + '/auth/login/customer', data),
+    payload: axios.post(url + '/auth/login/' + type, data),
   };
 };
 
-export const registerUser = (data) => {
+export const registerUser = (data, type) => {
   return {
     type: registerUserString,
-    payload: axios.post(url + '/auth/register/customer', data),
+    payload: axios.post(url + '/auth/register/' + type, data),
   };
 };
 

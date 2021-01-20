@@ -12,8 +12,25 @@ const authStyle = StyleSheet.create({
     marginTop: 15,
   },
   formSection: {
-    marginTop: 60,
+    marginTop: 10,
     paddingHorizontal: 15,
+  },
+  btnTypeSec: {
+    flex: 1,
+    flexDirection: 'row',
+    padding: 15,
+  },
+  btnType: {
+    minHeight: 40,
+    maxWidth: 100,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 25,
+    backgroundColor: '#F01F0E',
+    // borderColor: '#F01F0E',
+    // borderWidth: 0.5,
+    marginRight: 10,
   },
   infoText: {
     color: '#222',
