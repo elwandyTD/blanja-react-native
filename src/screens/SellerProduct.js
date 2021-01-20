@@ -50,7 +50,11 @@ class SellerProduct extends Component {
           <View style={catalogStyle.containerTop}>
             <Text>My Products</Text>
             <TouchableOpacity
-              onPress={() => this.props.navigation.push('Add Product')}>
+              onPress={() =>
+                this.props.navigation.push('Add Product', {
+                  user: this.state.user,
+                })
+              }>
               <Text>Add New Product</Text>
             </TouchableOpacity>
           </View>

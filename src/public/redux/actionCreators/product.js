@@ -4,6 +4,7 @@ import {
   getProductPopularString,
   getSingleProductString,
   getSellerProductString,
+  postProductString,
 } from '../actionString';
 // import env from 'react-native-config';
 import axios from 'axios';
@@ -42,5 +43,16 @@ export const getProductNews = () => {
   return {
     type: getProductNewString,
     payload: axios.get(url + '/product?order=newest&sort=desc'),
+  };
+};
+
+export const postProduct = (data, token) => {
+  return {
+    type: postProductString,
+    payload: axios.post(url + '/product', data, {
+      headers: {
+        'x-access-token': 'Bearer ' + token,
+      },
+    }),
   };
 };

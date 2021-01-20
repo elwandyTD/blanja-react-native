@@ -4,6 +4,7 @@ import {
   getProductPopularString,
   getSingleProductString,
   getSellerProductString,
+  postProductString,
   pending,
   rejected,
   fulfilled,
@@ -15,6 +16,7 @@ const initialState = {
   productNew: {},
   singleProduct: {},
   seller: {},
+  insert: {},
   isPending: false,
   isRejected: false,
   isFulFilled: false,
@@ -131,6 +133,28 @@ const productReducer = (prevState = initialState, action) => {
         isPending: false,
         isFulFilled: true,
         seller: action.payload.data,
+      };
+
+    case postProductString + pending:
+      return {
+        ...prevState,
+        isPending: true,
+        isRejected: false,
+        isFulFilled: false,
+      };
+    case postProductString + rejected:
+      return {
+        ...prevState,
+        isPending: false,
+        isRejected: true,
+        err: action.payload.data,
+      };
+    case postProductString + fulfilled:
+      return {
+        ...prevState,
+        isPending: false,
+        isFulFilled: true,
+        insert: action.payload.data,
       };
 
     default:
