@@ -126,6 +126,27 @@ class Profile extends Component {
                 <Text>{'>'}</Text>
               </View>
             </TouchableOpacity>
+            {this.state.user.level && this.state.user.level === 'seller' ? (
+              <TouchableOpacity>
+                <View style={styles.linkItem}>
+                  <View style={styles.rowLink}>
+                    <Text style={styles.linkTitle}>Add product</Text>
+                    <Text style={styles.linkSub}>Add new product</Text>
+                  </View>
+                  <Text>{'>'}</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity>
+                <View style={styles.linkItem}>
+                  <View style={styles.rowLink}>
+                    <Text style={styles.linkTitle}>Customer</Text>
+                    <Text style={styles.linkSub}>For Customer</Text>
+                  </View>
+                  <Text>{'>'}</Text>
+                </View>
+              </TouchableOpacity>
+            )}
             <Button
               title="Sign In"
               onPress={() => this.props.navigation.navigate('Sign In')}
