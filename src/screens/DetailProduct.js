@@ -38,7 +38,7 @@ export class DetailProduct extends Component {
         items: JSON.parse(items),
       });
     }
-    // console.log(this.state.items);
+    console.log(this.state.items);
   };
 
   getDetailProduct = async () => {
@@ -84,6 +84,7 @@ export class DetailProduct extends Component {
         size: this.state.size,
         qty: this.state.qty + 1,
         img: this.state.product.product_images[0].image_path,
+        checked: false,
       };
 
       await AsyncStorage.setItem(

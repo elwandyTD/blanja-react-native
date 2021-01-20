@@ -8,6 +8,8 @@ import {
   Image,
 } from 'react-native';
 import IconF from 'react-native-vector-icons/Fontisto';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import CheckBox from '@react-native-community/checkbox';
 
 import categoriesStyles from '../styles/categoriesStyles';
 import catalogStyle from '../styles/catalogStyle';
@@ -21,6 +23,8 @@ import Header from '../components/Header';
 export class Bag extends Component {
   state = {
     items: [],
+    checkedItems: [],
+    totalPrice: 0,
   };
 
   iconRight = () => {
@@ -38,47 +42,74 @@ export class Bag extends Component {
     );
   };
 
-  getItems = async () => {};
+  getItems = async () => {
+    // await AsyncStorage.setItem('@bag', JSON.stringify([]));
+    const items = await AsyncStorage.getItem('@bag');
 
-  cardItem = () => {
-    let qty = 1;
+    if (items !== null) {
+      const parse = JSON.parse(items);
+      let price = 0;
+      parse.map((item) => {
+        price = price + Number(item.product_price) * item.qty;
+      });
 
-    return (
-      <TouchableOpacity onPress={() => console.log('Tet')}>
-        <View style={catalogStyle.cardItem}>
-          <Image source={ProductImage} style={catalogStyle.cardImage} />
-          <View style={catalogStyle.cardInfo}>
-            <Text style={catalogStyle.cardTitle}>Pullover</Text>
-            <View style={styles.infosItem}>
-              <Text style={catalogStyle.cardBrand}>Mango: </Text>
-              <Text style={catalogStyle.cardBrand}>Gray</Text>
-              <Text style={catalogStyle.cardBrand}>Size: </Text>
-              <Text style={catalogStyle.cardBrand}>Mango</Text>
-            </View>
-            <View style={styles.changeInfoSect}>
-              <View style={styles.infosItem}>
-                <TouchableOpacity
-                  style={styles.btnNum}
-                  onPress={() => {
-                    if (qty !== 1) {
-                      qty--;
-                      console.log('kurang');
-                    }
-                  }}>
-                  <Text style={styles.textBtnNum}>-</Text>
-                </TouchableOpacity>
-                <Text style={styles.textNumInfo}>{qty}</Text>
-                <TouchableOpacity style={styles.btnNum} onPress={() => qty++}>
-                  <Text style={styles.textBtnNum}>+</Text>
-                </TouchableOpacity>
-              </View>
-              <Text style={catalogStyle.textNumInfo}>34$</Text>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
+      this.setState({
+        items: parse,
+        totalPrice: price,
+      });
+    }
   };
+
+  counterPrice = async (qty, i, type) => {
+    let newQty = qty;
+    if (type === 'plus') {
+      newQty++;
+    } else {
+      if (newQty !== 1) {
+        newQty--;
+      }
+    }
+
+    const items = this.state.items;
+
+    items[i].qty = newQty;
+
+    await AsyncStorage.setItem('@bag', JSON.stringify(items));
+    this.getItems();
+  };
+
+  checkoutItem = async () => {
+    const checkout = {
+      subtotal: this.state.totalPrice,
+      items: this.state.items,
+    };
+    this.props.navigation.navigate('Checkout', {
+      checkout,
+    });
+  };
+
+  updateChecked = async (value, i) => {
+    const items = this.state.items;
+
+    if (value === true) {
+      this.setState({
+        checkedItems: [...this.state.checkedItems, i],
+      });
+    } else {
+      this.setState({
+        checkedItems: this.state.checkedItems.filter(),
+      });
+    }
+
+    items[i].checked = value;
+
+    await AsyncStorage.setItem('@bag', JSON.stringify(items));
+    this.getItems();
+  };
+
+  componentDidMount() {
+    this.getItems();
+  }
 
   render() {
     return (
@@ -92,44 +123,99 @@ export class Bag extends Component {
           />
           <Text style={styles.titleBag}>My Bag</Text>
           <View style={styles.itemsContainer}>
-            {this.cardItem()}
-            {/* <TouchableOpacity onPress={() => console.log('Tet')}>
-              <View style={catalogStyle.cardItem}>
-                <Image source={ProductImage} style={catalogStyle.cardImage} />
-                <View style={catalogStyle.cardInfo}>
-                  <Text style={catalogStyle.cardTitle}>Pullover</Text>
-                  <View style={styles.infosItem}>
-                    <Text style={catalogStyle.cardBrand}>Mango: </Text>
-                    <Text style={catalogStyle.cardBrand}>Gray</Text>
-                    <Text style={catalogStyle.cardBrand}>Size: </Text>
-                    <Text style={catalogStyle.cardBrand}>Mango</Text>
-                  </View>
-                  <View style={styles.changeInfoSect}>
-                    <View style={styles.infosItem}>
-                      <TouchableOpacity style={styles.btnNum}>
-                        <Text style={styles.textBtnNum}>-</Text>
-                      </TouchableOpacity>
-                      <Text style={styles.textNumInfo}>1</Text>
-                      <TouchableOpacity style={styles.btnNum}>
-                        <Text style={styles.textBtnNum}>+</Text>
-                      </TouchableOpacity>
+            {/* {this.cardItem()} */}
+            {this.state.items &&
+              this.state.items.map((item, i) => {
+                // console.log(i);
+                return (
+                  <TouchableOpacity key={i} onPress={() => console.log('Tet')}>
+                    <View
+                      style={{
+                        ...catalogStyle.cardItem,
+                        // ...{overflow: 'hidden'},
+                      }}>
+                      <View style={styles.checkContainer}>
+                        <CheckBox
+                          disabled={false}
+                          value={item.checked}
+                          onValueChange={(newValue) =>
+                            this.updateChecked(newValue, i)
+                          }
+                        />
+                      </View>
+                      <View
+                        style={{
+                          ...styles.checkContainer,
+                          ...{maxWidth: 110},
+                        }}>
+                        <Image
+                          // source={ProductImage}
+                          source={{
+                            uri: 'http://192.168.43.216:8000' + item.img,
+                          }}
+                          style={catalogStyle.cardImage}
+                        />
+                      </View>
+                      <View style={catalogStyle.cardInfo}>
+                        <Text
+                          style={{
+                            ...catalogStyle.cardTitle,
+                            ...{maxWidth: 100, overflow: 'hidden'},
+                          }}>
+                          {item.product_title}
+                        </Text>
+                        <View style={styles.infosItem}>
+                          <Text style={catalogStyle.cardBrand}>Color: </Text>
+                          <Text
+                            style={{
+                              ...catalogStyle.cardBrand,
+                              ...{marginRight: 10},
+                            }}>
+                            {item.color}
+                          </Text>
+                          <Text style={catalogStyle.cardBrand}>Size: </Text>
+                          <Text style={catalogStyle.cardBrand}>
+                            {item.size}
+                          </Text>
+                        </View>
+                        <View style={styles.changeInfoSect}>
+                          <View style={styles.infosItem}>
+                            <TouchableOpacity
+                              onPress={() =>
+                                this.counterPrice(item.qty, i, 'min')
+                              }
+                              style={styles.btnNum}>
+                              <Text style={styles.textBtnNum}>-</Text>
+                            </TouchableOpacity>
+                            <Text style={styles.textNumInfo}>{item.qty}</Text>
+                            <TouchableOpacity
+                              onPress={() =>
+                                this.counterPrice(item.qty, i, 'plus')
+                              }
+                              style={styles.btnNum}>
+                              <Text style={styles.textBtnNum}>+</Text>
+                            </TouchableOpacity>
+                          </View>
+                          <Text style={catalogStyle.textNumInfo}>
+                            {item.qty * item.product_price}$
+                          </Text>
+                        </View>
+                      </View>
                     </View>
-                    <Text style={catalogStyle.textNumInfo}>34$</Text>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity> */}
+                  </TouchableOpacity>
+                );
+              })}
           </View>
         </ScrollView>
         <View style={styles.bottomContainer}>
           <View style={{...styles.changeInfoSect, ...{marginBottom: 20}}}>
             <Text style={styles.textTotalPrice}>Total amount: </Text>
-            <Text style={styles.numTotalPrice}>112$</Text>
+            <Text style={styles.numTotalPrice}>{this.state.totalPrice}$</Text>
           </View>
           <View>
             <TouchableOpacity
               style={styles.btnAuth1}
-              onPress={() => this.props.navigation.navigate('Checkout')}>
+              onPress={this.checkoutItem}>
               <Text style={styles.btnAuthText}>CHECKOUT</Text>
             </TouchableOpacity>
           </View>

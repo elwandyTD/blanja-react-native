@@ -17,6 +17,8 @@ export const addUserAddressString = 'ADD_USER_ADDRESS';
 export const updateUserAddressString = 'UPDATE_USER_ADDRESS';
 export const deleteUserAddressString = 'DELETE_USER_ADDRESS';
 
+export const postTransactionString = 'POST_TRANSACTION';
+
 export const getCategoryString = 'GET_CATEGORY';
 
 export const pending = '_PENDING';

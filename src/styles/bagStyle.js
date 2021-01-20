@@ -32,6 +32,7 @@ const bagStyle = StyleSheet.create({
   btnNum: {
     width: 36,
     height: 36,
+    maxWidth: 36,
     backgroundColor: '#FFF',
     elevation: 1,
     flex: 1,
@@ -69,21 +70,19 @@ const bagStyle = StyleSheet.create({
     height: 48,
     borderRadius: 25,
     backgroundColor: '#DB3022',
-    // display: 'flex',
-    // flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // elevation: 1,
   },
   btnAuthText: {
     textAlign: 'center',
-    // textAlignVertical: 'center',
     marginTop: 14,
     fontFamily: 'Metropolis-Regular',
     color: '#FFF',
-    // flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
+  },
+  checkContainer: {
+    flex: 1,
+    minWidth: 30,
+    maxWidth: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

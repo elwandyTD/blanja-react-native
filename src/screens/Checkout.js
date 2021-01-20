@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 
 // import bagStyle from '../styles/bagStyle';
 // import authStyles from '../styles/authStyle';
+import {postTransaction} from '../public/redux/actionCreators/transaction';
 import {getActiveAddress} from '../public/redux/actionCreators/profile';
 import styles from '../styles/checkoutStyle';
 import MasterCard from '../assets/icons/mastercard.png';
@@ -16,8 +17,12 @@ import Header from '../components/Header';
 
 export class Checkout extends Component {
   state = {
-    test: false,
     address: {},
+    mastercard: true,
+    pos: false,
+    gopay: false,
+    method: 'Mastercard',
+    user: {},
   };
 
   getActiveAddressUser = async () => {
@@ -31,11 +36,48 @@ export class Checkout extends Component {
         const {active} = this.props.profile;
 
         if (active.data) {
-          this.setState({address: active.data});
+          this.setState({address: active.data, user});
         }
       }
     } catch (e) {
       console.log(e);
+    }
+  };
+
+  updatePaymentMethod = (newValue, type, method) => {
+    if (newValue) {
+      this.setState({
+        mastercard: type === 'm' ? true : false,
+        pos: type === 'p' ? true : false,
+        gopay: type === 'g' ? true : false,
+        method,
+      });
+    } else {
+      this.setState({
+        mastercard: false,
+        pos: false,
+        gopay: false,
+      });
+    }
+  };
+
+  getCheckout = async () => {
+    const checkout = this.props.route.params.checkout;
+    const dispatch = this.props.dispatch;
+    const {user, address, method} = this.state;
+
+    const newCheckout = {
+      ...checkout,
+      user_id: user.user_id,
+      method,
+      address: address.address,
+    };
+
+    await dispatch(postTransaction(newCheckout));
+    const {post} = this.props.transaction;
+    if (post.msg) {
+      await AsyncStorage.setItem('@bag', JSON.stringify([]));
+      this.props.navigation.navigate('Success');
     }
   };
 
@@ -79,9 +121,9 @@ export class Checkout extends Component {
                   </View>
                   <CheckBox
                     disabled={false}
-                    value={this.state.test}
+                    value={this.state.mastercard}
                     onValueChange={(newValue) =>
-                      this.setState({test: newValue})
+                      this.updatePaymentMethod(newValue, 'm', 'Mastercard')
                     }
                   />
                 </View>
@@ -94,9 +136,9 @@ export class Checkout extends Component {
                   </View>
                   <CheckBox
                     disabled={false}
-                    value={this.state.test}
+                    value={this.state.pos}
                     onValueChange={(newValue) =>
-                      this.setState({test: newValue})
+                      this.updatePaymentMethod(newValue, 'p', 'Pos Indonesia')
                     }
                   />
                 </View>
@@ -109,9 +151,9 @@ export class Checkout extends Component {
                   </View>
                   <CheckBox
                     disabled={false}
-                    value={this.state.test}
+                    value={this.state.gopay}
                     onValueChange={(newValue) =>
-                      this.setState({test: newValue})
+                      this.updatePaymentMethod(newValue, 'g', 'GoPay')
                     }
                   />
                 </View>
@@ -134,9 +176,8 @@ export class Checkout extends Component {
             <Text style={styles.summaryText}>Summary: </Text>
             <Text style={styles.summaryPrice}>127$</Text>
           </View>
-          <TouchableOpacity
-            style={styles.btnAuth}
-            onPress={() => this.props.navigation.navigate('Success')}>
+          <TouchableOpacity style={styles.btnAuth} onPress={this.getCheckout}>
+            {/* onPress={() => this.props.navigation.navigate('Success')}> */}
             <Text style={styles.btnAuthText}>SUBMIT ORDER</Text>
           </TouchableOpacity>
         </View>
@@ -145,9 +186,10 @@ export class Checkout extends Component {
   }
 }
 
-const mapsStateToProps = ({profile}) => {
+const mapsStateToProps = ({profile, transaction}) => {
   return {
     profile,
+    transaction,
   };
 };
 
