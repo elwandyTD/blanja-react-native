@@ -127,11 +127,14 @@ class Profile extends Component {
               </View>
             </TouchableOpacity>
             {this.state.user.level && this.state.user.level === 'seller' ? (
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.push('Seller Products')}>
                 <View style={styles.linkItem}>
                   <View style={styles.rowLink}>
-                    <Text style={styles.linkTitle}>Add product</Text>
-                    <Text style={styles.linkSub}>Add new product</Text>
+                    <Text style={styles.linkTitle}>My Products</Text>
+                    <Text style={styles.linkSub}>
+                      Add, edit or delete my products
+                    </Text>
                   </View>
                   <Text>{'>'}</Text>
                 </View>

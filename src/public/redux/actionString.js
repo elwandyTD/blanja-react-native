@@ -5,6 +5,7 @@ export const getProductPopularString = 'GET_PRODUCT_POPULAR';
 export const getSingleProductString = 'GET_SINGLE_PRODUCT';
 export const getProductNewString = 'GET_PRODUCT_NEW';
 export const getProductString = 'GET_PRODUCT';
+export const getSellerProductString = 'GET_SELLER_PRODUCTS';
 
 export const loginUserString = 'LOGIN_USER';
 export const registerUserString = 'REGISTER_USER';

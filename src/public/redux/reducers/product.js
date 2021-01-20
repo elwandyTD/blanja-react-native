@@ -3,6 +3,7 @@ import {
   getProductNewString,
   getProductPopularString,
   getSingleProductString,
+  getSellerProductString,
   pending,
   rejected,
   fulfilled,
@@ -13,6 +14,7 @@ const initialState = {
   productPopular: {},
   productNew: {},
   singleProduct: {},
+  seller: {},
   isPending: false,
   isRejected: false,
   isFulFilled: false,
@@ -107,6 +109,28 @@ const productReducer = (prevState = initialState, action) => {
         isPending: false,
         isFulFilled: true,
         singleProduct: action.payload.data,
+      };
+
+    case getSellerProductString + pending:
+      return {
+        ...prevState,
+        isPending: true,
+        isRejected: false,
+        isFulFilled: false,
+      };
+    case getSellerProductString + rejected:
+      return {
+        ...prevState,
+        isPending: false,
+        isRejected: true,
+        err: action.payload.data,
+      };
+    case getSellerProductString + fulfilled:
+      return {
+        ...prevState,
+        isPending: false,
+        isFulFilled: true,
+        seller: action.payload.data,
       };
 
     default:
