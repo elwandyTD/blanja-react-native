@@ -128,6 +128,7 @@ class Home extends Component {
             subtitle="You've never seen it before!"
             products={this.state.productPopular.products}
             link="?order=popular"
+            tag="Popular"
             // to="Home"
           />
         </ScrollView>

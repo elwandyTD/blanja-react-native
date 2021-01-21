@@ -18,6 +18,7 @@ const ProductsHorizontal = ({
   justList = false,
   products = [],
   link,
+  tag = 'New',
 }) => {
   const navigation = useNavigation();
 
@@ -77,7 +78,7 @@ const ProductsHorizontal = ({
                       }}
                       style={styles.cardImage}>
                       <View style={styles.labelImage}>
-                        <Text style={styles.labelText}>New</Text>
+                        <Text style={styles.labelText}>{tag}</Text>
                       </View>
                     </ImageBackground>
                   </View>

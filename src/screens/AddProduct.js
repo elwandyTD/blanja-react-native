@@ -150,7 +150,7 @@ export class AddProduct extends Component {
     const {insert} = this.props.product;
 
     if (insert.data) {
-      this.props.navigation.navigate('Seller Products');
+      this.props.navigation.push('Seller Products');
     }
   };
 

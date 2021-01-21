@@ -63,7 +63,7 @@ const productsHorizontalStyle = StyleSheet.create({
     top: 10,
     left: 10,
     height: 24,
-    width: 40,
+    minWidth: 40,
     backgroundColor: '#222222',
     borderRadius: 29,
   },
@@ -73,6 +73,7 @@ const productsHorizontalStyle = StyleSheet.create({
     fontSize: 11,
     fontWeight: 'bold',
     fontFamily: 'Metropolis-Regular',
+    marginHorizontal: 10,
   },
   starsReview: {
     flex: 1,

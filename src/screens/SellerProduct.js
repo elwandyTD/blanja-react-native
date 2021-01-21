@@ -45,7 +45,7 @@ class SellerProduct extends Component {
   render() {
     return (
       <>
-        <MyHeader title="My Products" color="#FFF" />
+        <MyHeader title="My Products" to="Profile" color="#FFF" />
         <ScrollView>
           <View style={catalogStyle.containerTop}>
             <Text>My Products</Text>

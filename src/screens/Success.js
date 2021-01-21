@@ -18,7 +18,7 @@ const Success = () => {
         </Text>
         <TouchableOpacity
           style={styles.btnAuth}
-          onPress={() => navigation.replace('Home')}>
+          onPress={() => navigation.push('Home')}>
           <Text style={styles.btnAuthText}>CONTINUE SHOPPING</Text>
         </TouchableOpacity>
       </View>

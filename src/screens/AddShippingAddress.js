@@ -5,6 +5,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import {connect} from 'react-redux';
@@ -52,7 +53,7 @@ export class AddShippingAddress extends Component {
       const {insert} = this.props.profile;
 
       if (insert.status === 200) {
-        this.props.navigation.replace('Shipping Address');
+        this.props.navigation.push('Shipping Address');
       }
     } else {
       if (!address.title) {
@@ -64,7 +65,7 @@ export class AddShippingAddress extends Component {
       if (!address.recipient_number) {
         delete address.recipient_number;
       }
-      if (!address) {
+      if (!address.address) {
         delete address.address;
       }
       if (!address.city) {
@@ -79,12 +80,13 @@ export class AddShippingAddress extends Component {
       if (!address.country) {
         delete address.country;
       }
-
+      // console.log(address);
       await dispatch(updateUserAddress(item.id, address));
       const {update} = this.props.profile;
 
       if (update.status === 200) {
-        this.props.navigation.replace('Shipping Address');
+        // this.props.navigation.pop();
+        this.props.navigation.push('Shipping Address');
       }
     }
   };
@@ -100,7 +102,7 @@ export class AddShippingAddress extends Component {
           {/* <View style={authStyle.formSection}> */}
           {/* <Text style={authStyle.infoTextError}>{this.state.error}</Text> */}
           <View style={authStyle.textInput}>
-            <Text style={authStyle.label}>Save address as</Text>
+            {/* <Text style={authStyle.label}>Save address as</Text> */}
             <TextInput
               style={authStyle.inputForm}
               placeholder={item.title ? item.title : 'address name ...'}
@@ -109,7 +111,7 @@ export class AddShippingAddress extends Component {
             />
           </View>
           <View style={authStyle.textInput}>
-            <Text style={authStyle.label}>Recipient name</Text>
+            {/* <Text style={authStyle.label}>Recipient name</Text> */}
             <TextInput
               style={authStyle.inputForm}
               placeholder={item.recipient ? item.recipient : 'person name ...'}
@@ -118,12 +120,12 @@ export class AddShippingAddress extends Component {
             />
           </View>
           <View style={authStyle.textInput}>
-            <Text style={authStyle.label}>Recipient number</Text>
+            {/* <Text style={authStyle.label}>Recipient number</Text> */}
             <TextInput
               style={authStyle.inputForm}
               placeholder={
                 item.recipient_number
-                  ? item.recipient_number
+                  ? item.recipient_number.toString()
                   : 'person number ...'
               }
               keyboardType="numeric"
@@ -132,7 +134,7 @@ export class AddShippingAddress extends Component {
             />
           </View>
           <View style={authStyle.textInput}>
-            <Text style={authStyle.label}>Full address</Text>
+            {/* <Text style={authStyle.label}>Full address</Text> */}
             <TextInput
               style={authStyle.inputForm}
               placeholder={item.address ? item.address : 'full address ...'}
@@ -141,7 +143,7 @@ export class AddShippingAddress extends Component {
             />
           </View>
           <View style={authStyle.textInput}>
-            <Text style={authStyle.label}>City</Text>
+            {/* <Text style={authStyle.label}>City</Text> */}
             <TextInput
               style={authStyle.inputForm}
               placeholder={item.city ? item.city : 'city name ...'}
@@ -150,7 +152,7 @@ export class AddShippingAddress extends Component {
             />
           </View>
           <View style={authStyle.textInput}>
-            <Text style={authStyle.label}>State/Province/Region</Text>
+            {/* <Text style={authStyle.label}>State/Province/Region</Text> */}
             <TextInput
               style={authStyle.inputForm}
               placeholder={
@@ -161,10 +163,12 @@ export class AddShippingAddress extends Component {
             />
           </View>
           <View style={authStyle.textInput}>
-            <Text style={authStyle.label}>Zip Code (Postal Code)</Text>
+            {/* <Text style={authStyle.label}>Zip Code (Postal Code)</Text> */}
             <TextInput
               style={authStyle.inputForm}
-              placeholder={item.zip_code ? item.zip_code : 'your zip code ...'}
+              placeholder={
+                item.zip_code ? item.zip_code.toString() : 'your zip code ...'
+              }
               keyboardType="numeric"
               value={this.state.address.zip_code}
               onChangeText={(e) => this.handleInput(e, 'zip_code')}

@@ -56,10 +56,40 @@ export class ShippingAdress extends Component {
               <View key={i} style={checkoutStyle.shippingCart}>
                 <View style={checkoutStyle.rowInfo}>
                   <Text style={checkoutStyle.infoText}>{item.recipient}</Text>
-                  <Text
-                    style={{...checkoutStyle.infoText, ...{color: '#DB3022'}}}>
-                    Change
-                  </Text>
+                  <View style={styles.confItems}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        this.props.navigation.push('Add Shipping Address', {
+                          id: this.state.user.user_id,
+                          type: 'Edit',
+                          item: item,
+                        })
+                      }>
+                      <Text
+                        style={{
+                          ...checkoutStyle.infoText,
+                          ...{color: '#DB3022'},
+                        }}>
+                        Edit
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() =>
+                        this.props.navigation.push('Add Shipping Address', {
+                          id: this.state.user.user_id,
+                          type: 'Edit',
+                          item: {},
+                        })
+                      }>
+                      <Text
+                        style={{
+                          ...checkoutStyle.infoText,
+                          ...{color: '#DB3022'},
+                        }}>
+                        Change
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
                 <Text style={checkoutStyle.infoText}>{item.address}</Text>
               </View>
@@ -70,6 +100,7 @@ export class ShippingAdress extends Component {
               this.props.navigation.push('Add Shipping Address', {
                 id: this.state.user.user_id,
                 type: 'Insert',
+                item: {},
               })
             }
             style={styles.btnAddress}>

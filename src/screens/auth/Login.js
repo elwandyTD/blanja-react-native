@@ -85,7 +85,7 @@ export class Login extends Component {
       try {
         await AsyncStorage.setItem('@user', JSON.stringify(login.data));
 
-        this.props.navigation.replace('Home');
+        this.props.navigation.push('Home');
       } catch (e) {
         console.log(e);
       }
@@ -95,7 +95,7 @@ export class Login extends Component {
   render() {
     return (
       <>
-        <MyHeader title=" " />
+        <MyHeader to="Home" title=" " />
         <ScrollView style={styles.container}>
           <Text style={styles.title}>Login {this.state.type}</Text>
           {/* <Text style={styles.infoText}>
