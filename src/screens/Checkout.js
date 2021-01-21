@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 
 // import bagStyle from '../styles/bagStyle';
 // import authStyles from '../styles/authStyle';
+import {notificationSchedule} from '../service/localNotification';
 import {postTransaction} from '../public/redux/actionCreators/transaction';
 import {getActiveAddress} from '../public/redux/actionCreators/profile';
 import styles from '../styles/checkoutStyle';
@@ -76,6 +77,10 @@ export class Checkout extends Component {
     await dispatch(postTransaction(newCheckout));
     const {post} = this.props.transaction;
     if (post.msg) {
+      notificationSchedule(
+        user.user_name + ' Berhasil Checkout',
+        'Terima kasih telah berbelanja, ditunggu ya order selanjutnya',
+      );
       await AsyncStorage.setItem('@bag', JSON.stringify([]));
       this.props.navigation.navigate('Success');
     }
