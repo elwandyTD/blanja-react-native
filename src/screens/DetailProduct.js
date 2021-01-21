@@ -27,7 +27,7 @@ export class DetailProduct extends Component {
     color: '',
     qty: 0,
     product: {},
-    items: {},
+    items: [],
   };
 
   getItems = async () => {
@@ -38,7 +38,7 @@ export class DetailProduct extends Component {
         items: JSON.parse(items),
       });
     }
-    console.log(this.state.items);
+    // console.log(this.state.items);
   };
 
   getDetailProduct = async () => {
@@ -94,6 +94,7 @@ export class DetailProduct extends Component {
     }
 
     this.getItems();
+    console.log(this.state.items);
   };
 
   componentDidMount() {
