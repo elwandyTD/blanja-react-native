@@ -3,9 +3,11 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {PersistGate} from 'redux-persist/integration/react';
+import {persistStore} from 'redux-persist';
 import {Provider} from 'react-redux';
 
-import configureStore from './src/public/redux/store';
+import store from './src/public/redux/store';
+// import configureStore from './src/public/redux/store';
 
 import SplashScreen from './src/screens/SplashScreen';
 import Notification from './src/screens/Notifcation';
@@ -23,13 +25,14 @@ import SellerProduct from './src/screens/SellerProduct';
 import AddProduct from './src/screens/AddProduct';
 // import MyOrders from './src/screens/MyOrders';
 
-const {store, persistor} = configureStore();
+const persistedStore = persistStore(store);
+// const {store, persistor} = configureStore();
 const Stack = createStackNavigator();
 
 const appRouter = () => {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={null} persistor={persistedStore}>
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen

@@ -13,6 +13,7 @@ import {connect} from 'react-redux';
 import {
   addUserAddress,
   updateUserAddress,
+  getUserAddress,
 } from '../public/redux/actionCreators/profile';
 import authStyle from '../styles/authStyle';
 import styles from '../styles/addShippingAddressStyle';
@@ -46,14 +47,15 @@ export class AddShippingAddress extends Component {
 
   onSubmit = async () => {
     const {dispatch} = this.props;
-    const {type, item} = this.props.route.params;
+    const {type, item, id} = this.props.route.params;
     const address = this.state.address;
     if (type === 'Insert') {
       await dispatch(addUserAddress(address));
       const {insert} = this.props.profile;
 
       if (insert.status === 200) {
-        this.props.navigation.push('Shipping Address');
+        dispatch(getUserAddress(id));
+        this.props.navigation.pop();
       }
     } else {
       if (!address.title) {

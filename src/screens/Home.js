@@ -81,7 +81,8 @@ class Home extends Component {
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
+    console.log(this.props.auth);
     const {height, width, orientation} = this.props.device;
     return (
       <SafeAreaView style={styles.container}>
@@ -137,11 +138,12 @@ class Home extends Component {
   }
 }
 
-const mapsStateToProps = ({device, product, attribute}) => {
+const mapsStateToProps = ({device, product, attribute, auth}) => {
   return {
     device,
     product,
     attribute,
+    auth,
   };
 };
 

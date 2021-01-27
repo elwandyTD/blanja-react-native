@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, ScrollView, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
+// import {BoxShadow} from 'react-native-shadow';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {getUserAddress} from '../public/redux/actionCreators/profile';
@@ -46,55 +47,57 @@ export class ShippingAdress extends Component {
   }
 
   render() {
+    const {address} = this.props.profile;
     return (
       <>
         <Header title="Shipping Address" />
         <ScrollView style={styles.container}>
           <Text style={checkoutStyle.titleInfo}>Shipping Addres</Text>
-          {this.state.address.map((item, i) => {
-            return (
-              <View key={i} style={checkoutStyle.shippingCart}>
-                <View style={checkoutStyle.rowInfo}>
-                  <Text style={checkoutStyle.infoText}>{item.recipient}</Text>
-                  <View style={styles.confItems}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        this.props.navigation.push('Add Shipping Address', {
-                          id: this.state.user.user_id,
-                          type: 'Edit',
-                          item: item,
-                        })
-                      }>
-                      <Text
-                        style={{
-                          ...checkoutStyle.infoText,
-                          ...{color: '#DB3022'},
-                        }}>
-                        Edit
-                      </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={() =>
-                        this.props.navigation.push('Add Shipping Address', {
-                          id: this.state.user.user_id,
-                          type: 'Edit',
-                          item: {},
-                        })
-                      }>
-                      <Text
-                        style={{
-                          ...checkoutStyle.infoText,
-                          ...{color: '#DB3022'},
-                        }}>
-                        Change
-                      </Text>
-                    </TouchableOpacity>
+          {address.data &&
+            address.data.map((item, i) => {
+              return (
+                <View key={i} style={checkoutStyle.shippingCart}>
+                  <View style={checkoutStyle.rowInfo}>
+                    <Text style={checkoutStyle.infoText}>{item.recipient}</Text>
+                    <View style={styles.confItems}>
+                      <TouchableOpacity
+                        onPress={() =>
+                          this.props.navigation.push('Add Shipping Address', {
+                            id: this.state.user.user_id,
+                            type: 'Edit',
+                            item: item,
+                          })
+                        }>
+                        <Text
+                          style={{
+                            ...checkoutStyle.infoText,
+                            ...{color: '#DB3022'},
+                          }}>
+                          Edit
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() =>
+                          this.props.navigation.push('Add Shipping Address', {
+                            id: this.state.user.user_id,
+                            type: 'Edit',
+                            item: {},
+                          })
+                        }>
+                        <Text
+                          style={{
+                            ...checkoutStyle.infoText,
+                            ...{color: '#DB3022'},
+                          }}>
+                          Change
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
+                  <Text style={checkoutStyle.infoText}>{item.address}</Text>
                 </View>
-                <Text style={checkoutStyle.infoText}>{item.address}</Text>
-              </View>
-            );
-          })}
+              );
+            })}
           <TouchableOpacity
             onPress={() =>
               this.props.navigation.push('Add Shipping Address', {

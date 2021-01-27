@@ -80,6 +80,9 @@
 		<string>Metropolis-Bold.otf</string>
 		<string>Metropolis-Regular.otf</string>
 		<string>Metropolis-Thin.otf</string>
+		<string>Roboto_medium.ttf</string>
+		<string>Roboto.ttf</string>
+		<string>rubicon-icon-font.ttf</string>
 	</array>
 </dict>
 </plist>

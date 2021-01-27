@@ -1,5 +1,4 @@
 import {combineReducers} from 'redux';
-import {persistCombineReducers} from 'redux-persist';
 
 import deviceReducer from './device';
 import productReducer from './product';
