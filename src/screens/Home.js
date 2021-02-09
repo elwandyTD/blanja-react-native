@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Dimensions} from 'react-native';
 import {connect} from 'react-redux';
 import IconF from 'react-native-vector-icons/Feather';
 // import Config from 'react-native-config';
@@ -23,10 +24,13 @@ import ProductsHorizontal from '../components/ProductsHorizontal';
 import {updateTest} from '../public/redux/actionCreators/device';
 import Banner from '../assets/images/banner.jpg';
 import styles from '../styles/homeStyle';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class Home extends Component {
   state = {
-    device: '',
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width,
+    orientation: 'portrait',
     productNew: {},
     productPopular: {},
   };
@@ -74,16 +78,36 @@ class Home extends Component {
     console.log(this.props.device);
   };
 
+  isProduct = async () => {
+    try {
+      const a = await AsyncStorage.getItem('@product');
+      if (a !== null) {
+        console.log(JSON.parse(a));
+      } else {
+        console.log('Kosong');
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   componentDidMount() {
     this.getProductNewDispatch();
     this.getProductPopularDispacth();
     this.getCategoriesDispatch();
+
+    // this.isProduct();
+
+    // const newSocketConnection = io('http://localhost:8080', {
+    //   query: {id},
+    // });
   }
 
   render() {
     // console.log(this.state);
     console.log(this.props.auth);
-    const {height, width, orientation} = this.props.device;
+    // const {height, width, orientation} = this.props.device;
+
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar
@@ -99,13 +123,15 @@ class Home extends Component {
                 ...styles.bannerImage,
                 ...{
                   height:
-                    orientation === 'portrait' ? height / 2.5 : height - 25,
+                    this.state.orientation === 'portrait'
+                      ? this.state.height / 2.5
+                      : this.state.height - 25,
                 },
               }}>
               <Text
                 style={{
                   ...styles.textTitle,
-                  ...{fontSize: width / 10},
+                  ...{fontSize: this.state.width / 10},
                 }}>
                 Street Clothes
               </Text>

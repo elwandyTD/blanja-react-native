@@ -133,6 +133,34 @@ class Profile extends Component {
                         <Text>{'>'}</Text>
                       </View>
                     </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={
+                        () => console.log('transaction')
+                        // this.props.navigation.push('Transaction', {
+                        //   user: this.state.user,
+                        // })
+                      }>
+                      <View style={styles.linkItem}>
+                        <View style={styles.rowLink}>
+                          <Text style={styles.linkTitle}>All Transaction</Text>
+                          <Text style={styles.linkSub}>
+                            Notifications, password
+                          </Text>
+                        </View>
+                        <Text>{'>'}</Text>
+                      </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                      <View style={styles.linkItem}>
+                        <View style={styles.rowLink}>
+                          <Text style={styles.linkTitle}>Settings</Text>
+                          <Text style={styles.linkSub}>
+                            Notifications, password
+                          </Text>
+                        </View>
+                        <Text>{'>'}</Text>
+                      </View>
+                    </TouchableOpacity>
                   </>
                 ) : (
                   <>
@@ -183,6 +211,18 @@ class Profile extends Component {
                     onPress={() => this.props.navigation.navigate('Sign In')}
                   />
                 )}
+                <TouchableOpacity
+                  onPress={() =>
+                    this.props.navigation.push('Chat', {user: this.state.user})
+                  }>
+                  <View style={styles.linkItem}>
+                    <View style={styles.rowLink}>
+                      <Text style={styles.linkTitle}>Chat</Text>
+                      <Text style={styles.linkSub}>Already have 12 orders</Text>
+                    </View>
+                    <Text>{'>'}</Text>
+                  </View>
+                </TouchableOpacity>
                 <Button title="Logout" onPress={this.logoutUser} />
               </View>
             </ScrollView>
