@@ -17,6 +17,7 @@ import AddShippingAddress from '../screens/AddShippingAddress';
 import SellerProduct from '../screens/SellerProduct';
 import AddProduct from '../screens/AddProduct';
 import Chat from '../screens/Chat';
+import Otp from '../screens/auth/Otp';
 
 const Stack = createStackNavigator();
 
@@ -55,6 +56,13 @@ const MainRouter = () => {
         <Stack.Screen
           name="Reset Password"
           component={ResetPass}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="OTP"
+          component={Otp}
           options={{
             headerShown: false,
           }}

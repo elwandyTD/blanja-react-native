@@ -3,6 +3,7 @@ import {
   registerUserString,
   forgotPassString,
   logoutUserString,
+  getOtpString,
   pending,
   rejected,
   fulfilled,
@@ -13,6 +14,7 @@ const initialState = {
   logout: {},
   register: {},
   forgot: {},
+  otp: {},
   isPending: false,
   isRejected: false,
   isFulFilled: false,
@@ -85,6 +87,28 @@ const authReducer = (prevState = initialState, action) => {
         isPending: false,
         isFulFilled: true,
         forgot: action.payload.data,
+      };
+
+    case getOtpString + pending:
+      return {
+        ...prevState,
+        isPending: true,
+        isRejected: false,
+        isFulFilled: false,
+      };
+    case getOtpString + rejected:
+      return {
+        ...prevState,
+        isPending: false,
+        isRejected: true,
+        err: action.payload.data,
+      };
+    case getOtpString + fulfilled:
+      return {
+        ...prevState,
+        isPending: false,
+        isFulFilled: true,
+        otp: action.payload.data,
       };
 
     case logoutUserString + pending:

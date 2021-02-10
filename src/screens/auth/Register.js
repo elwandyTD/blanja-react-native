@@ -112,13 +112,35 @@ export class Register extends Component {
           <View style={styles.btnTypeSec}>
             <TouchableOpacity
               onPress={() => this.updateType('Customer')}
-              style={styles.btnType}>
-              <Text style={styles.btnAuthText}>Customer</Text>
+              style={
+                this.state.type === 'Customer'
+                  ? styles.btnType
+                  : styles.btnTypeOff
+              }>
+              <Text
+                style={
+                  this.state.type === 'Customer'
+                    ? styles.btnAuthText
+                    : styles.btnAuthTextOff
+                }>
+                Customer
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => this.updateType('Seller')}
-              style={styles.btnType}>
-              <Text style={styles.btnAuthText}>Seller</Text>
+              style={
+                this.state.type === 'Seller'
+                  ? styles.btnType
+                  : styles.btnTypeOff
+              }>
+              <Text
+                style={
+                  this.state.type === 'Seller'
+                    ? styles.btnAuthText
+                    : styles.btnAuthTextOff
+                }>
+                Seller
+              </Text>
             </TouchableOpacity>
           </View>
           {this.state.type === 'Customer' ? (

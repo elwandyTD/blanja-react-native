@@ -51,43 +51,41 @@ export class Login extends Component {
   };
 
   onSubmit = async () => {
-    // const {user_email, user_password} = this.state.user;
-    // const empty = [user_email.trim(), user_password.trim()];
+    const {user_email, user_password} = this.state.user;
+    const empty = [user_email.trim(), user_password.trim()];
 
-    // if (empty.includes('')) {
-    //   this.setState({
-    //     error: 'Please fill the form',
-    //   });
-    // } else if (!user_email.includes('@')) {
-    //   this.setState({
-    //     error: 'Please input email',
-    //   });
-    // } else {
-
-    // }
-
-    const {dispatch} = this.props;
-
-    if (this.state.type === 'Customer') {
-      await dispatch(loginUser(this.state.user, 'customer'));
-    } else {
-      await dispatch(loginUser(this.state.seller, 'seller'));
-    }
-    const {login} = this.props.auth;
-    // console.log(login);
-    if (login.err) {
+    if (empty.includes('')) {
       this.setState({
-        error: login.err,
+        error: 'Please fill the form',
       });
-    }
+    } else if (!user_email.includes('@')) {
+      this.setState({
+        error: 'Please input email',
+      });
+    } else {
+      const {dispatch} = this.props;
 
-    if (login.data) {
-      try {
-        await AsyncStorage.setItem('@user', JSON.stringify(login.data));
+      if (this.state.type === 'Customer') {
+        await dispatch(loginUser(this.state.user, 'customer'));
+      } else {
+        await dispatch(loginUser(this.state.seller, 'seller'));
+      }
+      const {login} = this.props.auth;
+      // console.log(login);
+      if (login.err) {
+        this.setState({
+          error: login.err,
+        });
+      }
 
-        this.props.navigation.push('Home');
-      } catch (e) {
-        console.log(e);
+      if (login.data) {
+        try {
+          await AsyncStorage.setItem('@user', JSON.stringify(login.data));
+
+          this.props.navigation.push('Home');
+        } catch (e) {
+          console.log(e);
+        }
       }
     }
   };
@@ -97,7 +95,7 @@ export class Login extends Component {
       <>
         <MyHeader to="Home" title=" " />
         <ScrollView style={styles.container}>
-          <Text style={styles.title}>Login {this.state.type}</Text>
+          <Text style={styles.title}>Login</Text>
           {/* <Text style={styles.infoText}>
               We have sent an email containing a password reset instruction to
               your email. please check your email.
@@ -105,13 +103,35 @@ export class Login extends Component {
           <View style={styles.btnTypeSec}>
             <TouchableOpacity
               onPress={() => this.updateType('Customer')}
-              style={styles.btnType}>
-              <Text style={styles.btnAuthText}>Customer</Text>
+              style={
+                this.state.type === 'Customer'
+                  ? styles.btnType
+                  : styles.btnTypeOff
+              }>
+              <Text
+                style={
+                  this.state.type === 'Customer'
+                    ? styles.btnAuthText
+                    : styles.btnAuthTextOff
+                }>
+                Customer
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => this.updateType('Seller')}
-              style={styles.btnType}>
-              <Text style={styles.btnAuthText}>Seller</Text>
+              style={
+                this.state.type === 'Seller'
+                  ? styles.btnType
+                  : styles.btnTypeOff
+              }>
+              <Text
+                style={
+                  this.state.type === 'Seller'
+                    ? styles.btnAuthText
+                    : styles.btnAuthTextOff
+                }>
+                Seller
+              </Text>
             </TouchableOpacity>
           </View>
           {this.state.type === 'Customer' ? (

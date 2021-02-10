@@ -26,10 +26,22 @@ const authStyle = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 25,
+    borderRadius: 10,
     backgroundColor: '#F01F0E',
-    // borderColor: '#F01F0E',
-    // borderWidth: 0.5,
+    borderColor: '#F01F0E',
+    borderWidth: 0.5,
+    marginRight: 10,
+  },
+  btnTypeOff: {
+    minHeight: 40,
+    maxWidth: 100,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    backgroundColor: '#FFF',
+    borderColor: '#F01F0E',
+    borderWidth: 0.5,
     marginRight: 10,
   },
   infoText: {
@@ -77,6 +89,10 @@ const authStyle = StyleSheet.create({
   btnAuthText: {
     fontFamily: 'Metropolis-Regular',
     color: '#FFF',
+  },
+  btnAuthTextOff: {
+    fontFamily: 'Metropolis-Regular',
+    color: '#DB3022',
   },
 });
 

@@ -3,6 +3,7 @@ import {
   registerUserString,
   forgotPassString,
   logoutUserString,
+  getOtpString,
 } from '../actionString';
 import axios from 'axios';
 
@@ -22,10 +23,17 @@ export const registerUser = (data, type) => {
   };
 };
 
+export const otpUser = (data) => {
+  return {
+    type: getOtpString,
+    payload: axios.post(url + '/auth/register/' + data),
+  };
+};
+
 export const forgotPassword = (data) => {
   return {
     type: forgotPassString,
-    payload: axios.post(url + '/auth/send_email/customer', data),
+    payload: axios.post(url + '/auth/forgot_pass/customer', data),
   };
 };
 
