@@ -5,9 +5,10 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {forgotPassword} from '../../public/redux/actionCreators/auth';
+import {otpUser} from '../../public/redux/actionCreators/auth';
 
 import styles from '../../styles/authStyle';
 import MyHeader from '../../components/Header';
@@ -31,23 +32,28 @@ export class Otp extends Component {
 
   onSubmit = async () => {
     if (this.state.user.otp.trim() === '') {
+      ToastAndroid.show('Otp failed', ToastAndroid.SHORT);
       this.setState({
-        error: 'Please input your email',
+        error: 'Please input your otp',
       });
     } else {
-      const {dispatch} = this.props;
+      const {dispatch, navigation} = this.props;
 
-      await dispatch(forgotPassword(this.state.user));
+      await dispatch(otpUser(this.state.user));
       const {otp} = this.props.auth;
 
       if (otp.error) {
         this.setState({
           error: otp.error,
         });
+        ToastAndroid.show('Otp failed', ToastAndroid.SHORT);
       }
 
-      if (otp.data) {
-        console.log(otp);
+      if (otp.message) {
+        ToastAndroid.show('Otp success', ToastAndroid.SHORT);
+        navigation.replace('Reset Password', {
+          email: this.props.route.params.email,
+        });
       }
     }
   };

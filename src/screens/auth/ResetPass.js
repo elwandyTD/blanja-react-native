@@ -6,6 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import {connect} from 'react-redux';
+import {resetPassword} from '../../public/redux/actionCreators/auth';
 
 import styles from '../../styles/authStyle';
 import MyHeader from '../../components/Header';
@@ -13,21 +15,53 @@ import MyHeader from '../../components/Header';
 export class ResetPass extends Component {
   state = {
     onTyping: false,
+    error: '',
     user: {
-      email: '',
-      password: '',
+      pass1: '',
+      pass2: '',
     },
   };
 
-  // handleInput = (e) => {
-  //   const value = e.target.value;
-  //   this.setState({
-  //     auth: {
-  //       ...this.state.auth,
-  //       // [e.target]
-  //     },
-  //   });
-  // };
+  handleInput = (value, name) => {
+    this.setState({
+      user: {
+        ...this.state.user,
+        [name]: value,
+      },
+    });
+  };
+
+  onSubmit = async () => {
+    if (this.state.user.pass1 === '' || this.state.user.pass2 === '') {
+      this.setState({
+        error: 'Please fill the form',
+      });
+    } else if (this.state.user.pass1 !== this.state.user.pass2) {
+      this.setState({
+        error: "Password doesn't match",
+      });
+    } else {
+      const {dispatch, navigation} = this.props;
+      const body = {
+        role: 'customers',
+        user_email: this.props.route.params.email,
+        user_password: this.state.user.pass1,
+      };
+
+      await dispatch(resetPassword(body));
+      const {reset} = this.props.auth;
+
+      if (reset.error) {
+        this.setState({
+          error: reset.error,
+        });
+      }
+
+      if (reset.message) {
+        navigation.navigate('Sign In');
+      }
+    }
+  };
 
   render() {
     return (
@@ -39,12 +73,15 @@ export class ResetPass extends Component {
             <Text style={styles.infoTextError}>
               You need to change your password to activate your account
             </Text>
+            <Text style={styles.infoTextError}>{this.state.error}</Text>
             <View style={styles.textInput}>
               <Text style={styles.label}>New Password</Text>
               <TextInput
                 secureTextEntry={true}
                 style={styles.inputForm}
                 placeholder="your password ..."
+                value={this.state.user.pass1}
+                onChangeText={(e) => this.handleInput(e, 'pass1')}
               />
             </View>
             <View style={styles.textInput}>
@@ -53,9 +90,11 @@ export class ResetPass extends Component {
                 secureTextEntry={true}
                 style={styles.inputForm}
                 placeholder="your password ..."
+                value={this.state.user.pass2}
+                onChangeText={(e) => this.handleInput(e, 'pass2')}
               />
             </View>
-            <TouchableOpacity style={styles.btnAuth}>
+            <TouchableOpacity onPress={this.onSubmit} style={styles.btnAuth}>
               <Text style={styles.btnAuthText}>RESET PASSWORD</Text>
             </TouchableOpacity>
           </View>
@@ -65,4 +104,10 @@ export class ResetPass extends Component {
   }
 }
 
-export default ResetPass;
+const mapsStateToProps = ({auth}) => {
+  return {
+    auth,
+  };
+};
+
+export default connect(mapsStateToProps)(ResetPass);

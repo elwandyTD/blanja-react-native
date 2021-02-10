@@ -35,7 +35,7 @@ export class ForgotPass extends Component {
         error: 'Please input your email',
       });
     } else {
-      const {dispatch} = this.props;
+      const {dispatch, navigation} = this.props;
 
       await dispatch(forgotPassword(this.state.user));
       const {forgot} = this.props.auth;
@@ -47,13 +47,9 @@ export class ForgotPass extends Component {
       }
 
       if (forgot.data) {
-        const {user_id, user_email, role} = forgot.data;
-        const dataUser = {
-          user_id,
-          user_email,
-          role,
-        };
-        console.log(dataUser);
+        navigation.replace('OTP', {
+          email: this.state.user.user_email,
+        });
       }
     }
   };
