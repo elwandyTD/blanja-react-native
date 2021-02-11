@@ -5,6 +5,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 import IconF from 'react-native-vector-icons/Fontisto';
 import {connect} from 'react-redux';
@@ -66,12 +67,14 @@ export class Register extends Component {
     const {register} = this.props.auth;
 
     if (register.error) {
+      ToastAndroid.show('Sign up failed', ToastAndroid.SHORT);
       this.setState({
         error: register.error,
       });
     }
 
     if (register.status === 200) {
+      ToastAndroid.show('Sign up success', ToastAndroid.SHORT);
       this.props.navigation.replace('Sign In');
     }
 
@@ -83,24 +86,6 @@ export class Register extends Component {
     //   this.setState({
     //     error: 'Please input email',
     //   });
-    // } else {
-    //   this.setState({
-    //     error: '',
-    //   });
-    //   const {dispatch} = this.props;
-    //   await dispatch(registerUser(this.state.user));
-    //   const {register} = this.props.auth;
-
-    //   if (register.error) {
-    //     this.setState({
-    //       error: register.error,
-    //     });
-    //   }
-
-    // if (register.status === 200) {
-    //   this.props.navigation.replace('Sign In');
-    // }
-    // }
   };
 
   render() {

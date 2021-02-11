@@ -5,6 +5,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {resetPassword} from '../../public/redux/actionCreators/auth';
@@ -33,10 +34,12 @@ export class ResetPass extends Component {
 
   onSubmit = async () => {
     if (this.state.user.pass1 === '' || this.state.user.pass2 === '') {
+      ToastAndroid.show('Reset password failed', ToastAndroid.SHORT);
       this.setState({
         error: 'Please fill the form',
       });
     } else if (this.state.user.pass1 !== this.state.user.pass2) {
+      ToastAndroid.show('Reset password failed', ToastAndroid.SHORT);
       this.setState({
         error: "Password doesn't match",
       });
@@ -52,12 +55,14 @@ export class ResetPass extends Component {
       const {reset} = this.props.auth;
 
       if (reset.error) {
+        ToastAndroid.show('Reset password failed', ToastAndroid.SHORT);
         this.setState({
           error: reset.error,
         });
       }
 
       if (reset.message) {
+        ToastAndroid.show('Reset password success', ToastAndroid.SHORT);
         navigation.navigate('Sign In');
       }
     }

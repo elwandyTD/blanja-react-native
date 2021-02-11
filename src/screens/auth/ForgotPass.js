@@ -5,6 +5,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {forgotPassword} from '../../public/redux/actionCreators/auth';
@@ -31,6 +32,7 @@ export class ForgotPass extends Component {
 
   onSubmit = async () => {
     if (this.state.user.user_email.trim() === '') {
+      ToastAndroid.show('Forgot password failed', ToastAndroid.SHORT);
       this.setState({
         error: 'Please input your email',
       });
@@ -41,12 +43,14 @@ export class ForgotPass extends Component {
       const {forgot} = this.props.auth;
 
       if (forgot.error) {
+        ToastAndroid.show('Forgot password failed', ToastAndroid.SHORT);
         this.setState({
           error: forgot.error,
         });
       }
 
       if (forgot.data) {
+        ToastAndroid.show('Forgot password success', ToastAndroid.SHORT);
         navigation.replace('OTP', {
           email: this.state.user.user_email,
         });

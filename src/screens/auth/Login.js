@@ -5,6 +5,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 import IconF from 'react-native-vector-icons/Fontisto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -55,10 +56,12 @@ export class Login extends Component {
     const empty = [user_email.trim(), user_password.trim()];
 
     if (empty.includes('')) {
+      ToastAndroid.show('Login failed', ToastAndroid.SHORT);
       this.setState({
         error: 'Please fill the form',
       });
     } else if (!user_email.includes('@')) {
+      ToastAndroid.show('Login failed', ToastAndroid.SHORT);
       this.setState({
         error: 'Please input email',
       });
@@ -73,12 +76,14 @@ export class Login extends Component {
       const {login} = this.props.auth;
       // console.log(login);
       if (login.err) {
+        ToastAndroid.show('Login failed', ToastAndroid.SHORT);
         this.setState({
           error: login.err,
         });
       }
 
       if (login.data) {
+        ToastAndroid.show('Login success', ToastAndroid.SHORT);
         try {
           await AsyncStorage.setItem('@user', JSON.stringify(login.data));
 
