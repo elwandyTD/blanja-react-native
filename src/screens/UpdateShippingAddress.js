@@ -9,21 +9,20 @@ import {
 import {Picker} from '@react-native-picker/picker';
 import {connect} from 'react-redux';
 
-import {toastS} from '../helpers/toast';
 import {
-  addUserAddress,
+  updateUserAddress,
   getUserAddress,
 } from '../public/redux/actionCreators/profile';
 import authStyle from '../styles/authStyle';
 import styles from '../styles/addShippingAddressStyle';
 import MyHeader from '../components/Header';
 
-export class AddShippingAddress extends Component {
+class UpdateShippingAddress extends Component {
   state = {
     error: '',
     onTyping: false,
     address: {
-      // user_id: this.props.route.params.id,
+      user_id: this.props.route.params.id,
       title: '',
       recipient: '',
       address: '',
@@ -45,25 +44,44 @@ export class AddShippingAddress extends Component {
   };
 
   onSubmit = async () => {
+    console.log(this.state.address);
     const {dispatch} = this.props;
-    const {user_id} = this.props.auth.user.data;
     const address = this.state.address;
+    await dispatch(updateUserAddress(address.id, address));
+    const {update} = this.props.profile;
+    console.log(update);
+    console.log(address.user_id);
+    // console.log(this.props.dispatch);
 
-    await dispatch(addUserAddress({...address, user_id}));
-    const {insert} = this.props.profile;
-
-    if (insert.status === 200) {
-      toastS('Insert success');
-      dispatch(getUserAddress(user_id));
+    if (update.data) {
+      dispatch(getUserAddress(address.user_id));
       this.props.navigation.pop();
+      console.log('berhasil');
+      // await dispatch(updateUserAddress(item.id, address));
+      // const {update} = this.props.profile;
+      // if (update.status === 200) {
+      //   // this.props.navigation.pop();
+      //   this.props.navigation.push('Shipping Address');
+      // }
     }
   };
 
+  setValue = () => {
+    const {item} = this.props.route.params;
+    this.setState({
+      address: item,
+    });
+    console.log(item);
+  };
+
+  componentDidMount() {
+    this.setValue();
+  }
+
   render() {
-    // console.log(this.props.route.params.id);
     return (
       <>
-        <MyHeader title={'Add Shipping Address'} />
+        <MyHeader title={'Update Shipping Address'} />
         <ScrollView style={styles.container}>
           {/* <View style={authStyle.formSection}> */}
           {/* <Text style={authStyle.infoTextError}>{this.state.error}</Text> */}
@@ -128,7 +146,7 @@ export class AddShippingAddress extends Component {
               style={authStyle.inputForm}
               placeholder={'your zip code ...'}
               keyboardType="numeric"
-              value={this.state.address.zip_code}
+              value={this.state.address.zip_code.toString()}
               onChangeText={(e) => this.handleInput(e, 'zip_code')}
             />
           </View>
@@ -166,11 +184,10 @@ export class AddShippingAddress extends Component {
   }
 }
 
-const mapsStateToProps = ({profile, auth}) => {
+const mapsStateToProps = ({profile}) => {
   return {
     profile,
-    auth,
   };
 };
 
-export default connect(mapsStateToProps)(AddShippingAddress);
+export default connect(mapsStateToProps)(UpdateShippingAddress);

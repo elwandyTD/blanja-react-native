@@ -5,10 +5,18 @@ import {
   resetPassString,
   logoutUserString,
   getOtpString,
+  getUserString,
 } from '../actionString';
 import axios from 'axios';
 
 const url = 'http://192.168.43.216:8000';
+
+export const getUser = (role, id) => {
+  return {
+    type: getUserString,
+    payload: axios.get(`${url}/auth/user/${role}/${id}`),
+  };
+};
 
 export const loginUser = (data, type) => {
   return {

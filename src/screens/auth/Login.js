@@ -10,7 +10,7 @@ import {
 import IconF from 'react-native-vector-icons/Fontisto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {connect} from 'react-redux';
-import {loginUser} from '../../public/redux/actionCreators/auth';
+import {loginUser, getUser} from '../../public/redux/actionCreators/auth';
 
 import styles from '../../styles/authStyle';
 import MyHeader from '../../components/Header';
@@ -83,6 +83,7 @@ export class Login extends Component {
       }
 
       if (login.data) {
+        dispatch(getUser(login.data.level + 's', login.data.user_id));
         ToastAndroid.show('Login success', ToastAndroid.SHORT);
         try {
           await AsyncStorage.setItem('@user', JSON.stringify(login.data));

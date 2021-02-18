@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {useSelector} from 'react-redux';
 
 import BottomNavbar from './bottomNavigation/index';
 import SplashScreen from '../screens/SplashScreen';
@@ -18,10 +19,21 @@ import SellerProduct from '../screens/SellerProduct';
 import AddProduct from '../screens/AddProduct';
 import Chat from '../screens/Chat';
 import Otp from '../screens/auth/Otp';
+import UpdateShippingAddress from '../screens/UpdateShippingAddress';
 
 const Stack = createStackNavigator();
 
 const MainRouter = () => {
+  const user = useSelector((state) => state.auth.user);
+
+  useEffect(() => {
+    if (user.data) {
+      console.log('ADADADDDDADDDDDDDDDDDDDDD');
+    } else {
+      console.log('XXXXXXXXXXXXXXXXXXXXXXXXX');
+    }
+  }, [user]);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -119,6 +131,13 @@ const MainRouter = () => {
         <Stack.Screen
           name="Add Shipping Address"
           component={AddShippingAddress}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Update Shipping Address"
+          component={UpdateShippingAddress}
           options={{
             headerShown: false,
           }}

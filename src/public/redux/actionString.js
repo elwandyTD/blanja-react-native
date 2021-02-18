@@ -14,6 +14,7 @@ export const forgotPassString = 'FORGOT_PASS';
 export const resetPassString = 'RESET_PASS';
 export const logoutUserString = 'LOGOUT_USER';
 export const getOtpString = 'GET_OTP';
+export const getUserString = 'GET_USER';
 
 export const getActiveAddressString = 'GET_ACTIVE_ADDRESS';
 export const getUserAddressString = 'GET_USER_ADDRESS';

@@ -2,6 +2,7 @@ import {
   getActiveAddressString,
   getUserAddressString,
   addUserAddressString,
+  deleteUserAddressString,
   updateUserAddressString,
   pending,
   rejected,
@@ -13,6 +14,7 @@ const initialState = {
   active: {},
   insert: {},
   udpate: {},
+  remove: {},
   isPending: false,
   isRejected: false,
   isFulFilled: false,
@@ -107,6 +109,28 @@ const profileReducer = (prevState = initialState, action) => {
         isPending: false,
         isFulFilled: true,
         update: action.payload.data,
+      };
+
+    case deleteUserAddressString + pending:
+      return {
+        ...prevState,
+        isPending: true,
+        isRejected: false,
+        isFulFilled: false,
+      };
+    case deleteUserAddressString + rejected:
+      return {
+        ...prevState,
+        isPending: false,
+        isRejected: true,
+        err: action.payload.data,
+      };
+    case deleteUserAddressString + fulfilled:
+      return {
+        ...prevState,
+        isPending: false,
+        isFulFilled: true,
+        remove: action.payload.data,
       };
 
     default:

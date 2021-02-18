@@ -3,6 +3,7 @@ import {
   getUserAddressString,
   addUserAddressString,
   updateUserAddressString,
+  deleteUserAddressString,
 } from '../actionString';
 // import env from 'react-native-config';
 import axios from 'axios';
@@ -37,5 +38,12 @@ export const updateUserAddress = (id, data) => {
   return {
     type: updateUserAddressString,
     payload: axios.patch(url + '/attribute/address/' + id, data),
+  };
+};
+
+export const deleteUserAddress = (id) => {
+  return {
+    type: deleteUserAddressString,
+    payload: axios.delete(url + '/attribute/address/' + id),
   };
 };
