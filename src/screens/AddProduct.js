@@ -11,6 +11,7 @@ import {
 import {connect} from 'react-redux';
 import {Picker} from '@react-native-picker/picker';
 import DocumentPicker from 'react-native-document-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 
 import {
   getCategories,
@@ -109,6 +110,21 @@ export class AddProduct extends Component {
     });
   };
 
+  fromCamera = () => {
+    ImagePicker.openCamera({
+      cropping: true,
+      enableRotationGesture: true,
+      width: 300,
+      height: 400,
+    })
+      .then((image) => {
+        console.log(image);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   selectMultipleFile = async () => {
     try {
       const results = await DocumentPicker.pickMultiple({
@@ -118,7 +134,7 @@ export class AddProduct extends Component {
       this.setState({
         multiple: results,
       });
-      // console.log(results);
+      console.log(results);
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         console.log('Canceled');
@@ -139,6 +155,14 @@ export class AddProduct extends Component {
     formData.append('category_id', this.state.product.category);
     formData.append('product_price', this.state.product.price);
     formData.append('product_qty', this.state.product.stock);
+    // formData.append('product_colors', this.state.selectColor);
+    for (let i = this.state.selectColor.length - 1; i >= 0; i--) {
+      formData.append('product_colors', this.state.selectColor[i]);
+    }
+    // formData.append('product_sizes', this.state.selectSize);
+    for (let i = this.state.selectSize - 1; i >= 0; i--) {
+      formData.append('product_sizes', this.state.selectSize[i]);
+    }
     formData.append('user_id', user_id);
     formData.append('product_condition', this.state.product.condition);
     formData.append('product_description', this.state.product.desc);
@@ -167,7 +191,7 @@ export class AddProduct extends Component {
             <Text style={authStyle.label}>Product name</Text>
             <TextInput
               style={authStyle.inputForm}
-              placeholder={'address name ...'}
+              placeholder={'product name ...'}
               value={this.state.product.title}
               onChangeText={(e) => this.handleInput(e, 'title')}
             />
@@ -297,7 +321,8 @@ export class AddProduct extends Component {
             <Text style={authStyle.label}>
               Image of product ({this.state.multiple.length})
             </Text>
-            <Button title="Test" onPress={this.selectMultipleFile} />
+            <Button title="File" onPress={this.selectMultipleFile} />
+            <Button title="Camera" onPress={this.fromCamera} />
           </View>
           <View style={authStyle.textInput}>
             <Text style={authStyle.label}>Description</Text>

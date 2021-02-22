@@ -53,14 +53,17 @@ export class Login extends Component {
 
   onSubmit = async () => {
     const {user_email, user_password} = this.state.user;
-    const empty = [user_email.trim(), user_password.trim()];
+    const seller = this.state.seller;
+    const user = [user_email.trim(), user_password.trim()];
 
-    if (empty.includes('')) {
+    console.log(seller);
+
+    if (user.includes('') && this.state.type !== 'Seller') {
       ToastAndroid.show('Login failed', ToastAndroid.SHORT);
       this.setState({
         error: 'Please fill the form',
       });
-    } else if (!user_email.includes('@')) {
+    } else if (!user_email.includes('@') && this.state.type !== 'Seller') {
       ToastAndroid.show('Login failed', ToastAndroid.SHORT);
       this.setState({
         error: 'Please input email',
