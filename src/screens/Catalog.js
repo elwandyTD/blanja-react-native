@@ -162,7 +162,7 @@ class Catalog extends Component {
             <Text style={styles.title}>
               {this.state.title ? this.state.title : 'Search All'}
             </Text>
-            {this.tagsSection()}
+            {/* {this.tagsSection()} */}
             <View style={styles.filterSection}>
               <View style={styles.rowInfo}>
                 <Image source={FilterIcon} style={styles.filtersIcon} />

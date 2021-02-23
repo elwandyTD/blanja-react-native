@@ -146,7 +146,7 @@ export class AddProduct extends Component {
   };
 
   onSubmit = async () => {
-    const {user_id, token} = this.props.route.params.user;
+    const {user_id, token} = this.props.auth.login.data;
     const {dispatch} = this.props;
 
     let formData = new FormData();
@@ -350,6 +350,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({product, attribute}) => ({product, attribute});
+const mapStateToProps = ({product, attribute, auth}) => ({
+  product,
+  attribute,
+  auth,
+});
 
 export default connect(mapStateToProps)(AddProduct);

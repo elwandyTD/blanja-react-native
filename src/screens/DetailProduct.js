@@ -186,7 +186,7 @@ export class DetailProduct extends Component {
                 {!isPending ? this.state.product.product_title : 'Loading'}
               </Text>
               <Text style={styles.itemTitle}>
-                ${!isPending ? this.state.product.product_price : 0}
+                IDR {!isPending ? this.state.product.product_price : 0}
               </Text>
             </View>
             <Text style={productsHorizontalStyles.subtitle}>

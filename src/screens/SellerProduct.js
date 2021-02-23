@@ -29,7 +29,7 @@ class SellerProduct extends Component {
       auth: {user},
     } = this.props;
 
-    if (!user) {
+    if (user) {
       await dispatch(getSellerProducts(user.data.user_id));
       const {seller} = this.props.product;
 
@@ -50,6 +50,7 @@ class SellerProduct extends Component {
 
   render() {
     const {product} = this.props;
+    console.log(this.state.user, 'USER');
 
     return (
       <>
@@ -67,7 +68,9 @@ class SellerProduct extends Component {
             </TouchableOpacity>
           </View>
           <View style={catalogStyle.itemsContainer}>
-            {product && product.seller && product.seller.data.products.length
+            {product &&
+            product.seller.data &&
+            product.seller.data.products.length
               ? product.seller.data.products.map((item, i) => {
                   return (
                     <View key={i} style={catalogStyle.cardItem}>
@@ -78,7 +81,11 @@ class SellerProduct extends Component {
                         style={catalogStyle.cardImage}
                       />
                       <View style={catalogStyle.cardInfo}>
-                        <Text style={catalogStyle.cardTitle}>
+                        <Text
+                          style={{
+                            ...catalogStyle.cardTitle,
+                            ...{maxWidth: 200},
+                          }}>
                           {item.product_title}
                         </Text>
                         <Text style={catalogStyle.cardBrand}>
@@ -129,7 +136,7 @@ export default connect(mapStateToProps)(SellerProduct);
 const styles = StyleSheet.create({
   btn: {
     height: 30,
-    width: 30,
+    width: 150,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

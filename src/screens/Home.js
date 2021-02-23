@@ -83,7 +83,7 @@ class Home extends Component {
     this.getProductPopularDispacth();
     this.getCategoriesDispatch();
 
-    console.log(API_HOST);
+    // console.log(API_HOST);
     // this.isProduct();
 
     // const newSocketConnection = io('http://localhost:8080', {
@@ -92,14 +92,9 @@ class Home extends Component {
   }
 
   render() {
-    // console.log(this.state);
     const {product} = this.props;
 
     console.log(product && product.productNew);
-
-    // console.log(product.productNew && product.productNew, 'hahahah');
-    // console.log(this.props.product);
-    // const {height, width, orientation} = this.props.device;
 
     return (
       <SafeAreaView style={styles.container}>
