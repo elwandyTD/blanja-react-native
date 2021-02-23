@@ -1,12 +1,11 @@
 import {postTransactionString} from '../actionString';
 // import env from 'react-native-config';
 import axios from 'axios';
-
-const url = 'http://192.168.43.216:8000';
+import {API_HOST} from '@env';
 
 export const postTransaction = (body) => {
   return {
     type: postTransactionString,
-    payload: axios.post(url + '/history', body),
+    payload: axios.post(API_HOST + '/history', body),
   };
 };

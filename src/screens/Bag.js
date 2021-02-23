@@ -10,15 +10,13 @@ import {
 import IconF from 'react-native-vector-icons/Fontisto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckBox from '@react-native-community/checkbox';
+import {API_HOST} from '@env';
 
 import categoriesStyles from '../styles/categoriesStyles';
 import catalogStyle from '../styles/catalogStyle';
 import styles from '../styles/bagStyle';
 
-import ProductImage from '../assets/images/product-1.png';
 import Header from '../components/Header';
-
-// import authStyles from '../styles/authStyle';
 
 export class Bag extends Component {
   state = {
@@ -151,7 +149,7 @@ export class Bag extends Component {
                         <Image
                           // source={ProductImage}
                           source={{
-                            uri: 'http://192.168.43.216:8000' + item.img,
+                            uri: API_HOST + item.img,
                           }}
                           style={catalogStyle.cardImage}
                         />

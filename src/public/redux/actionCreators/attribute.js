@@ -5,33 +5,32 @@ import {
   getBrandsString,
 } from '../actionString';
 import axios from 'axios';
-
-const url = 'http://192.168.43.216:8000';
+import {API_HOST} from '@env';
 
 export const getCategories = () => {
   return {
     type: getCategoriesString,
-    payload: axios.get(url + '/category'),
+    payload: axios.get(API_HOST + '/category'),
   };
 };
 
 export const getSizes = () => {
   return {
     type: getSizesString,
-    payload: axios.get(url + '/attribute/sizes'),
+    payload: axios.get(API_HOST + '/attribute/sizes'),
   };
 };
 
 export const getColor = () => {
   return {
     type: getColorsString,
-    payload: axios.get(url + '/attribute/colors'),
+    payload: axios.get(API_HOST + '/attribute/colors'),
   };
 };
 
 export const getBrands = () => {
   return {
     type: getBrandsString,
-    payload: axios.get(url + '/attribute/brands'),
+    payload: axios.get(API_HOST + '/attribute/brands'),
   };
 };

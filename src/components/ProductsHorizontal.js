@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {AirbnbRating} from 'react-native-elements';
+import {API_HOST} from '@env';
 
 import styles from '../styles/productsHorizontalStyle';
 // import ProductImg from '../assets/images/product-1.png';
@@ -72,9 +73,7 @@ const ProductsHorizontal = ({
                   <View style={styles.cardHead}>
                     <ImageBackground
                       source={{
-                        uri:
-                          'http://192.168.43.216:8000' +
-                          item.product_images[0].image_path,
+                        uri: API_HOST + item.product_images[0].image_path,
                       }}
                       style={styles.cardImage}>
                       <View style={styles.labelImage}>

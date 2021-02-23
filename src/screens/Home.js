@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Dimensions} from 'react-native';
 import {connect} from 'react-redux';
 import IconF from 'react-native-vector-icons/Feather';
+import {API_HOST} from '@env';
 // import Config from 'react-native-config';
 // import axios from 'axios';
 import {
@@ -24,7 +25,7 @@ import ProductsHorizontal from '../components/ProductsHorizontal';
 import {updateTest} from '../public/redux/actionCreators/device';
 import Banner from '../assets/images/banner.jpg';
 import styles from '../styles/homeStyle';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class Home extends Component {
   state = {
@@ -37,32 +38,31 @@ class Home extends Component {
 
   getProductNewDispatch = async () => {
     const {dispatch} = this.props;
-    if (this.props.product.productNew.data) {
-      this.setState({
-        productNew: this.props.product.productNew.data,
-      });
-    } else {
-      await dispatch(getProductNews());
-      const {product} = this.props;
-      this.setState({
-        productNew: product.productNew.data,
-      });
-    }
+    await dispatch(getProductNews());
+    const {product} = this.props;
+    this.setState({
+      productNew: product.productNew.data,
+    });
+    // if (this.props.product.productNew.data) {
+    //   this.setState({
+    //     productNew: this.props.product.productNew.data,
+    //   });
+    // } else {
+    //   await dispatch(getProductNews());
+    //   const {product} = this.props;
+    //   this.setState({
+    //     productNew: product.productNew.data,
+    //   });
+    // }
   };
 
   getProductPopularDispacth = async () => {
     const {dispatch} = this.props;
-    if (this.props.product.productPopular.data) {
-      this.setState({
-        productPopular: this.props.product.productPopular.data,
-      });
-    } else {
-      await dispatch(getProductPopulars());
-      const {product} = this.props;
-      this.setState({
-        productPopular: product.productPopular.data,
-      });
-    }
+    await dispatch(getProductPopulars());
+    const {product} = this.props;
+    this.setState({
+      productPopular: product.productPopular.data,
+    });
   };
 
   getCategoriesDispatch = async () => {
@@ -78,24 +78,12 @@ class Home extends Component {
     console.log(this.props.device);
   };
 
-  isProduct = async () => {
-    try {
-      const a = await AsyncStorage.getItem('@product');
-      if (a !== null) {
-        console.log(JSON.parse(a));
-      } else {
-        console.log('Kosong');
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   componentDidMount() {
     this.getProductNewDispatch();
     this.getProductPopularDispacth();
     this.getCategoriesDispatch();
 
+    console.log(API_HOST);
     // this.isProduct();
 
     // const newSocketConnection = io('http://localhost:8080', {
@@ -105,7 +93,12 @@ class Home extends Component {
 
   render() {
     // console.log(this.state);
-    console.log(this.props.auth);
+    const {product} = this.props;
+
+    console.log(product && product.productNew);
+
+    // console.log(product.productNew && product.productNew, 'hahahah');
+    // console.log(this.props.product);
     // const {height, width, orientation} = this.props.device;
 
     return (
@@ -146,14 +139,22 @@ class Home extends Component {
           <ProductsHorizontal
             title="New"
             subtitle="You've never seen it before!"
-            products={this.state.productNew.products}
+            products={
+              product &&
+              product.productNew.data &&
+              product.productNew.data.products
+            }
             link="?order=newest&sort=desc"
           />
 
           <ProductsHorizontal
             title="Popular"
             subtitle="You've never seen it before!"
-            products={this.state.productPopular.products}
+            products={
+              product &&
+              product.productPopular.data &&
+              product.productPopular.data.products
+            }
             link="?order=popular"
             tag="Popular"
             // to="Home"

@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {Text, TextInput, Button, View, ScrollView} from 'react-native';
 import {io} from 'socket.io-client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {API_HOST} from '@env';
+
 import MyHeader from '../components/Header';
 import styles from '../styles/chatStyle';
 
@@ -41,7 +43,7 @@ const Chat = ({route}) => {
 
   useEffect(() => {
     // const {user_id, level} = route.params.user;
-    const socket = io('http://192.168.43.216:8001', {
+    const socket = io(API_HOST, {
       query: {
         id: user_id,
         room: room_id,

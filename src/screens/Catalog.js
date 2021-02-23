@@ -12,6 +12,7 @@ import {connect} from 'react-redux';
 import IconF from 'react-native-vector-icons/Fontisto';
 import IconMI from 'react-native-vector-icons/MaterialIcons';
 import {getProducts} from '../public/redux/actionCreators/product';
+import {API_HOST} from '@env';
 
 import stylesIcon from '../styles/categoriesStyles';
 import stylesProductHorizontal from '../styles/productsHorizontalStyle';
@@ -191,9 +192,7 @@ class Catalog extends Component {
                     <View style={styles.cardItem}>
                       <Image
                         source={{
-                          uri:
-                            'http://192.168.43.216:8000' +
-                            item.product_images[0].image_path,
+                          uri: API_HOST + item.product_images[0].image_path,
                         }}
                         style={styles.cardImage}
                       />

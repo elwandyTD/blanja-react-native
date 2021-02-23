@@ -13,6 +13,7 @@ import {connect} from 'react-redux';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import {AirbnbRating} from 'react-native-elements';
 import {Picker} from '@react-native-picker/picker';
+import {API_HOST} from '@env';
 
 import {getSingleProduct} from '../public/redux/actionCreators/product';
 import productsHorizontalStyles from '../styles/productsHorizontalStyle';
@@ -131,7 +132,7 @@ export class DetailProduct extends Component {
                   <Image
                     key={i}
                     source={{
-                      uri: 'http://192.168.43.216:8000' + image.image_path,
+                      uri: API_HOST + image.image_path,
                     }}
                     style={styles.img}
                   />
