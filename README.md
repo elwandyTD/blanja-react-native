@@ -70,9 +70,11 @@ Runs the app in the development mode.
 ## Screenshoots
 
 <div align="center">
-   <img width="100%" src="./src/assets/Screenshot_15.png">
-   <img width="100%" src="./src/assets/Screenshot_6.png">
-   <img width="100%" src="./src/assets/Screenshot_8.png">
+   <img width="25%" src="./src/assets/Mobile-1.jpg">
+   <img width="25%" src="./src/assets/Mobile-2.jpg">
+   <img width="25%" src="./src/assets/Mobile-3.jpg">
+   <img width="25%" src="./src/assets/Mobile-4.jpg">
+   <img width="25%" src="./src/assets/Mobile-5.png">
 </div>
 
 ## Demo
