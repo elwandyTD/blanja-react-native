@@ -79,7 +79,7 @@ Runs the app in the development mode.
 
 ## Demo
 
-This is Blanja Web build version, let's try it.
+This is Blanja Mobile build version, let's try it.
 
 Link not ready
 
