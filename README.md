@@ -81,7 +81,7 @@ Runs the app in the development mode.
 
 This is Blanja Mobile build version, let's try it.
 
-Link not ready
+Build Version: http://bit.ly/Blanja-Apk
 
 ## Related Project
 
